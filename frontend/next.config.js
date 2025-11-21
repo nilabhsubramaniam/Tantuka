@@ -3,7 +3,8 @@ const nextConfig = {
     reactStrictMode: true,
     output: 'export',
     basePath: '/Tantuka',
-    assetPrefix: '/Tantuka',
+    assetPrefix: '/Tantuka/',
+    trailingSlash: true,
     images: {
         remotePatterns: [
             {
@@ -18,6 +19,9 @@ const nextConfig = {
     // API and backend configuration
     publicRuntimeConfig: {
         apiUrl: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1',
+    },
+    env: {
+        BASE_PATH: '/Tantuka',
     },
 }
 

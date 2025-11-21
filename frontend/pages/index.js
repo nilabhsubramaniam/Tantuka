@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Layout from '../components/layout/Layout';
 import Testimonials from '../components/home/Testimonials';
 import NewsletterSignup from '../components/home/NewsletterSignup';
+import { getImagePath } from '../utils/basePath';
 
 export default function Home() {
     return (
@@ -159,12 +160,10 @@ function SareeHero() {
                         className="relative h-full hidden lg:block"
                     >
                         <div className="relative w-full h-[600px] rounded-2xl overflow-hidden shadow-2xl">
-                            <Image
-                                src="/images/categories/sarees.jpg"
+                            <img
+                                src={getImagePath("/images/categories/sarees.jpg")}
                                 alt="Premium Sarees Collection"
-                                fill
-                                className="object-cover"
-                                priority
+                                className="w-full h-full object-cover"
                             />
                             <div className="absolute inset-0 bg-gradient-to-tr from-black/30 to-transparent"></div>
                         </div>
