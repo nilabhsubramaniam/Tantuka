@@ -1,8 +1,11 @@
 /** @type {import('next').NextConfig} */
+const isProd = process.env.NODE_ENV === 'production';
+
 const nextConfig = {
     reactStrictMode: true,
     output: 'export',
-    basePath: process.env.NODE_ENV === 'production' ? '/Tantuka' : '',
+    basePath: isProd ? '/Tantuka' : '',
+    assetPrefix: isProd ? '/Tantuka' : '',
     images: {
         remotePatterns: [
             {
