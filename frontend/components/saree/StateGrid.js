@@ -13,7 +13,7 @@ const StateGrid = () => {
             name: 'Uttar Pradesh',
             sareeType: 'Lucknow Chikankari',
             count: 120,
-            image: '/images/categories/kurtas.jpg',
+            image: '/images/sarees/uttar-pradesh.jpg',
             featured: true,
             description: 'Hand-embroidered masterpieces from Lucknow',
             colors: ['#E8DCC4', '#D4A574', '#A8826A']
@@ -23,7 +23,7 @@ const StateGrid = () => {
             name: 'Tamil Nadu',
             sareeType: 'Kanchipuram Silk',
             count: 85,
-            image: '/images/categories/sarees.jpg',
+            image: '/images/sarees/tamil-nadu.jpg',
             featured: false,
             description: 'Pure silk sarees with traditional patterns',
             colors: ['#8B0000', '#FFD700', '#F5DEB3']
@@ -33,7 +33,7 @@ const StateGrid = () => {
             name: 'Kerala',
             sareeType: 'Kasavu Saree',
             count: 65,
-            image: '/images/categories/dupattas.jpg',
+            image: '/images/sarees/kerala.jpg',
             featured: false,
             description: 'Traditional ivory and gold bordered sarees',
             colors: ['#FFFAF0', '#FFD700', '#DAA520']
@@ -43,7 +43,7 @@ const StateGrid = () => {
             name: 'Karnataka',
             sareeType: 'Mysore Silk',
             count: 50,
-            image: '/images/categories/dress-materials.jpg',
+            image: '/images/sarees/karnataka.jpg',
             featured: false,
             description: 'Rich silk sarees with intricate borders',
             colors: ['#4B0082', '#FFD700', '#8B4513']
@@ -53,7 +53,7 @@ const StateGrid = () => {
             name: 'West Bengal',
             sareeType: 'Tant Saree',
             count: 45,
-            image: '/images/categories/kurtas.jpg',
+            image: '/images/sarees/west-bengal.jpg',
             featured: false,
             description: 'Lightweight cotton sarees with fine weave',
             colors: ['#FFB6C1', '#FFFFFF', '#87CEEB']
@@ -63,7 +63,7 @@ const StateGrid = () => {
             name: 'Odisha',
             sareeType: 'Sambalpuri Saree',
             count: 40,
-            image: '/images/categories/sarees.jpg',
+            image: '/images/sarees/odisha.jpg',
             featured: false,
             description: 'Ikat sarees with geometric patterns',
             colors: ['#FF6347', '#FFFFFF', '#32CD32']
@@ -73,7 +73,7 @@ const StateGrid = () => {
             name: 'Maharashtra',
             sareeType: 'Paithani Saree',
             count: 38,
-            image: '/images/categories/dupattas.jpg',
+            image: '/images/sarees/maharashtra.jpg',
             featured: false,
             description: 'Golden bordered silk sarees',
             colors: ['#8B4513', '#FFD700', '#CD853F']

@@ -126,19 +126,21 @@ const SareeHero = () => {
                                 variants={itemVariants}
                                 className="flex flex-col sm:flex-row gap-4 pt-4"
                             >
-                                <motion.button
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    className="btn-primary px-8 py-4 text-lg font-semibold flex items-center justify-center gap-2 group"
-                                >
-                                    Explore Collections
-                                    <motion.span
-                                        className="group-hover:translate-x-2 transition-transform"
-                                        animate={{ x: 0 }}
+                                <Link href="/sarees/explore">
+                                    <motion.button
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        className="btn-primary px-8 py-4 text-lg font-semibold flex items-center justify-center gap-2 group"
                                     >
-                                        →
-                                    </motion.span>
-                                </motion.button>
+                                        Explore Collections
+                                        <motion.span
+                                            className="group-hover:translate-x-2 transition-transform"
+                                            animate={{ x: 0 }}
+                                        >
+                                            →
+                                        </motion.span>
+                                    </motion.button>
+                                </Link>
                                 <motion.button
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}

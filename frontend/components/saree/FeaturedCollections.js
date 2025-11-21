@@ -276,13 +276,15 @@ const FeaturedCollections = () => {
                 transition={{ delay: 0.5 }}
                 className="flex justify-center mt-16"
             >
-                <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="btn-primary px-12 py-4 text-lg font-semibold"
-                >
-                    View All Collections →
-                </motion.button>
+                <Link href="/sarees/explore">
+                    <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="btn-primary px-12 py-4 text-lg font-semibold"
+                    >
+                        View All Collections →
+                    </motion.button>
+                </Link>
             </motion.div>
         </div>
     );

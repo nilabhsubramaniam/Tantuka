@@ -56,9 +56,13 @@ const Header = () => {
                                     exit={{ opacity: 0, y: -10 }}
                                     className="absolute left-0 mt-2 w-48 bg-white rounded-lg shadow-xl py-2 border border-primary-100"
                                 >
-                                    <Link href="/sarees" className="block px-4 py-2 text-primary-900 hover:bg-primary-50 hover:text-accent-600 transition-colors font-semibold">
-                                        Shop All Sarees
+                                    <Link href="/sarees/explore" className="block px-4 py-2 text-primary-900 hover:bg-primary-50 hover:text-accent-600 transition-colors font-semibold">
+                                        Explore All Sarees
                                     </Link>
+                                    <Link href="/sarees" className="block px-4 py-2 text-primary-900 hover:bg-primary-50 hover:text-accent-600 transition-colors">
+                                        Collections
+                                    </Link>
+                                    <hr className="my-2 border-primary-100" />
                                     <Link href="/sarees/up" className="block px-4 py-2 text-primary-900 hover:bg-primary-50 hover:text-accent-600 transition-colors">
                                         ⭐ Lucknow Chikankari
                                     </Link>
@@ -69,7 +73,7 @@ const Header = () => {
                                         Tamil Nadu Sarees
                                     </Link>
                                     <hr className="my-2 border-primary-100" />
-                                    <Link href="/sarees?featured=true" className="block px-4 py-2 text-primary-900 hover:bg-primary-50 hover:text-accent-600 transition-colors text-sm">
+                                    <Link href="/sarees/explore?featured=true" className="block px-4 py-2 text-primary-900 hover:bg-primary-50 hover:text-accent-600 transition-colors text-sm">
                                         New Arrivals
                                     </Link>
                                 </motion.div>
@@ -158,8 +162,11 @@ const Header = () => {
                         exit={{ opacity: 0, y: -10 }}
                         className="md:hidden mt-4 pb-3 space-y-1"
                     >
-                        <Link href="/sarees" className="block px-3 py-2 rounded-md text-base font-bold text-accent-600 bg-primary-50">
-                            🧵 Shop Sarees
+                        <Link href="/sarees/explore" className="block px-3 py-2 rounded-md text-base font-bold text-accent-600 bg-primary-50">
+                            🧵 Explore All Sarees
+                        </Link>
+                        <Link href="/sarees" className="block px-3 py-2 rounded-md text-base font-medium text-primary-900 hover:text-accent-600 hover:bg-gray-50">
+                            Collections
                         </Link>
                         <Link href="/sarees/up" className="block px-3 py-2 rounded-md text-base font-medium text-primary-900 hover:text-accent-600 hover:bg-gray-50">
                             ⭐ Lucknow Chikankari
