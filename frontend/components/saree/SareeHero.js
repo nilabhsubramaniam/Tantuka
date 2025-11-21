@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { getImagePath } from '@/utils/basePath';
+import { getImagePath } from '../../utils/basePath';
 
 const SareeHero = () => {
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });

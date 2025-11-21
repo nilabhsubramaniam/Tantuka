@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { getImagePath } from '@/utils/basePath';
+import { getImagePath } from '../../utils/basePath';
 
 const StateGrid = () => {
     const [hoveredState, setHoveredState] = useState(null);

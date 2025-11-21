@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { getImagePath } from '@/utils/basePath';
+import { getImagePath } from '../../utils/basePath';
 
 const CategoryShowcase = () => {
     const categories = [

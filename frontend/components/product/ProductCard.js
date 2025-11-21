@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { getImagePath } from '@/utils/basePath';
+import { getImagePath } from '../../utils/basePath';
 
 const ProductCard = ({ product }) => {
     const { id, name, slug, images, price, originalPrice } = product;

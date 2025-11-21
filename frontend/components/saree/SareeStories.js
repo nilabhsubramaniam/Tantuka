@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { getImagePath } from '@/utils/basePath';
+import { getImagePath } from '../../utils/basePath';
 
 const SareeStories = () => {
     const [activeStory, setActiveStory] = useState(0);
