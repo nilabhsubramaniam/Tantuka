@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 import Link from 'next/link';
+import { getImagePath } from '@/utils/basePath';
 
 const StateGrid = () => {
     const [hoveredState, setHoveredState] = useState(null);
@@ -136,11 +136,10 @@ const StateGrid = () => {
                             } bg-gradient-to-br from-primary-50 to-primary-100`}
                         >
                             {/* Background Image */}
-                            <Image
-                                src={state.image}
+                            <img
+                                src={getImagePath(state.image)}
                                 alt={state.name}
-                                fill
-                                className="object-cover group-hover:scale-110 transition-transform duration-500"
+                                className="absolute w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                             />
 
                             {/* Overlay Gradient */}

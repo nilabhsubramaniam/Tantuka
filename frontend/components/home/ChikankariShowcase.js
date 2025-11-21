@@ -1,7 +1,7 @@
 import React from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import Button from '../ui/Button';
+import { getImagePath } from '../../utils/basePath';
 
 const ChikankariShowcase = () => {
     return (
@@ -17,11 +17,10 @@ const ChikankariShowcase = () => {
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
                     <div className="relative h-96 lg:h-[600px] rounded-lg overflow-hidden">
-                        <Image
-                            src="/images/brand/chikankari-craft.jpg"
+                        <img
+                            src={getImagePath("/images/brand/chikankari-craft.jpg")}
                             alt="Artisan working on Chikankari embroidery"
-                            fill
-                            className="object-cover"
+                            className="w-full h-full object-cover"
                         />
                     </div>
                     <div className="space-y-6">

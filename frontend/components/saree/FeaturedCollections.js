@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 import Link from 'next/link';
+import { getImagePath } from '@/utils/basePath';
 
 const FeaturedCollections = () => {
     const [activeFilter, setActiveFilter] = useState('all');
@@ -128,11 +128,10 @@ const FeaturedCollections = () => {
                             <div className="card-elegant overflow-hidden">
                                 {/* Image Container */}
                                 <div className="relative h-72 overflow-hidden bg-primary-100">
-                                    <Image
-                                        src={saree.image}
+                                    <img
+                                        src={getImagePath(saree.image)}
                                         alt={saree.name}
-                                        fill
-                                        className="object-cover group-hover:scale-110 transition-transform duration-500"
+                                        className="absolute w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                                     />
 
                                     {/* Badge */}

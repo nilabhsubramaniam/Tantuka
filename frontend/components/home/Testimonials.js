@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Image from 'next/image';
+import { getImagePath } from '../../utils/basePath';
 
 const Testimonials = () => {
     const testimonials = [
@@ -70,11 +70,10 @@ const Testimonials = () => {
                         <div className="flex flex-col md:flex-row items-center">
                             <div className="md:w-1/3 mb-6 md:mb-0">
                                 <div className="relative h-32 w-32 mx-auto rounded-full overflow-hidden border-4 border-primary-100">
-                                    <Image
-                                        src={testimonials[activeIndex].image || '/images/avatar-placeholder.jpg'}
+                                    <img
+                                        src={getImagePath(testimonials[activeIndex].image || '/images/avatar-placeholder.jpg')}
                                         alt={testimonials[activeIndex].name}
-                                        fill
-                                        className="object-cover"
+                                        className="w-full h-full object-cover"
                                     />
                                 </div>
                             </div>

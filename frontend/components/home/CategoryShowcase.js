@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import { getImagePath } from '@/utils/basePath';
 
 const CategoryShowcase = () => {
     const categories = [
@@ -48,11 +48,10 @@ const CategoryShowcase = () => {
                         >
                             <div className="relative overflow-hidden rounded-lg aspect-w-1 aspect-h-1 bg-gray-100">
                                 <div className="h-72 w-full relative">
-                                    <Image
-                                        src={category.image}
+                                    <img
+                                        src={getImagePath(category.image)}
                                         alt={category.name}
-                                        fill
-                                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                                     />
                                     <div className="absolute inset-0 bg-black bg-opacity-20 transition-opacity group-hover:bg-opacity-30"></div>
                                 </div>

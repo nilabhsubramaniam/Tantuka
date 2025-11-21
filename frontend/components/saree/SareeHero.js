@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 import Link from 'next/link';
+import { getImagePath } from '@/utils/basePath';
 
 const SareeHero = () => {
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -182,12 +182,10 @@ const SareeHero = () => {
                                 whileHover={{ scale: 1.02 }}
                                 transition={{ duration: 0.4 }}
                             >
-                                <Image
-                                    src="/images/hero/hero-chikankari.jpg"
+                                <img
+                                    src={getImagePath("/images/hero/hero-chikankari.jpg")}
                                     alt="Premium Lucknow Chikankari Saree"
-                                    fill
-                                    className="object-cover"
-                                    priority
+                                    className="w-full h-full object-cover"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-primary-900/20 to-transparent" />
                             </motion.div>

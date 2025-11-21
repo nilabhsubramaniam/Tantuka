@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
+import { getImagePath } from '@/utils/basePath';
 
 const SareeStories = () => {
     const [activeStory, setActiveStory] = useState(0);
@@ -85,11 +85,10 @@ const SareeStories = () => {
                         <div className="card-elegant overflow-hidden h-full">
                             {/* Image */}
                             <div className="relative h-64 overflow-hidden bg-primary-100">
-                                <Image
-                                    src={story.image}
+                                <img
+                                    src={getImagePath(story.image)}
                                     alt={story.name}
-                                    fill
-                                    className="object-cover group-hover:scale-110 transition-transform duration-500"
+                                    className="absolute w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-primary-900/60 to-transparent" />
 
@@ -197,11 +196,10 @@ const SareeStories = () => {
                     >
                         {/* Image */}
                         <div className="relative h-80 rounded-xl overflow-hidden shadow-xl">
-                            <Image
-                                src={stories[activeStory].image}
+                            <img
+                                src={getImagePath(stories[activeStory].image)}
                                 alt={stories[activeStory].name}
-                                fill
-                                className="object-cover"
+                                className="w-full h-full object-cover"
                             />
                         </div>
 

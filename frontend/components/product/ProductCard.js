@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { getImagePath } from '@/utils/basePath';
 
 const ProductCard = ({ product }) => {
     const { id, name, slug, images, price, originalPrice } = product;
@@ -29,13 +29,10 @@ const ProductCard = ({ product }) => {
                     <div className="relative aspect-[3/4] bg-gradient-to-br from-primary-50 to-sage-50">
                         {hasValidImage ? (
                             <>
-                                <Image
-                                    src={images[0]}
+                                <img
+                                    src={getImagePath(images[0])}
                                     alt={name}
                                     className="h-full w-full object-cover object-center transition-all duration-700 group-hover:scale-110"
-                                    width={400}
-                                    height={533}
-                                    unoptimized
                                 />
                                 {/* Gradient Overlay on Hover */}
                                 <motion.div 
