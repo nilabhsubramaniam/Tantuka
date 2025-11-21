@@ -18,7 +18,7 @@ const ChikankariShowcase = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
                     <div className="relative h-96 lg:h-[600px] rounded-lg overflow-hidden">
                         <Image
-                            src="/images/chikankari-craft.jpg"
+                            src="/images/brand/chikankari-craft.jpg"
                             alt="Artisan working on Chikankari embroidery"
                             fill
                             className="object-cover"

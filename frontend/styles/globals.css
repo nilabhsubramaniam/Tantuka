@@ -1,6 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap');
+
+/* @tailwind directives are handled by PostCSS - these warnings can be ignored */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-primary-50 text-primary-900 font-sans antialiased;
+  }
+
+  h1, h2, h3 {
+    @apply font-display;
+  }
+}
+
+@layer components {
+  /* Elegant button styles */
+  .btn-primary {
+    @apply px-6 py-3 bg-gradient-to-r from-accent-500 to-accent-600 text-white font-medium rounded-lg shadow-soft hover:shadow-hover transform hover:-translate-y-0.5 transition-all duration-300 ease-out;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 bg-white text-primary-700 font-medium rounded-lg border-2 border-primary-300 hover:border-accent-500 hover:text-accent-600 transition-all duration-300;
+  }
+
+  /* Card styles */
+  .card-elegant {
+    @apply bg-white rounded-xl shadow-soft hover:shadow-hover transition-all duration-300 transform hover:-translate-y-1;
+  }
+
+  /* Link underline animation */
+  .link-underline {
+    @apply relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-accent-500 after:transition-all after:duration-300 hover:after:w-full;
+  }
+}
+
+@layer utilities {
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-gradient-to-r from-accent-500 via-gold-500 to-accent-600 bg-clip-text text-transparent;
+  }
+
+  /* Glass morphism effect */
+  .glass {
+    @apply bg-white/80 backdrop-blur-md border border-white/20;
+  }
+
+  /* Smooth fade in on scroll */
+  .fade-in-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  .fade-in-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
@@ -46,33 +108,276 @@ a {
     /* Firefox */
 }
 
-/* Custom animations */
+/* ========== PREMIUM ANIMATIONS ========== */
+
+/* Page transitions */
+@keyframes pageEnter {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pageExit {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}
+
+/* Fade animations */
 @keyframes fadeIn {
     from {
         opacity: 0;
     }
-
     to {
         opacity: 1;
     }
 }
 
-.animate-fadeIn {
-    animation: fadeIn 1s ease-out;
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Slide animations */
 @keyframes slideInBottom {
     from {
         transform: translateY(20px);
         opacity: 0;
     }
-
     to {
         transform: translateY(0);
         opacity: 1;
     }
 }
 
+@keyframes slideInRight {
+    from {
+        transform: translateX(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Scale animations */
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes scaleUp {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.05);
+    }
+}
+
+/* Floating animations */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes floatSlow {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+/* Shimmer animation */
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+/* Pulse animation */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* Rotate animation */
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Glow animation */
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(102, 45, 21, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(102, 45, 21, 0.6);
+    }
+}
+
+/* Bounce animation */
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Heart beat animation */
+@keyframes heartBeat {
+    0%, 100% {
+        transform: scale(1);
+    }
+    25% {
+        transform: scale(1.3);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+/* Utility classes */
+.animate-fadeIn {
+    animation: fadeIn 0.6s ease-out;
+}
+
+.animate-fadeInUp {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.animate-fadeInDown {
+    animation: fadeInDown 0.6s ease-out;
+}
+
 .animate-slideIn {
     animation: slideInBottom 0.5s ease-out;
+}
+
+.animate-slideInRight {
+    animation: slideInRight 0.6s ease-out;
+}
+
+.animate-slideInLeft {
+    animation: slideInLeft 0.6s ease-out;
+}
+
+.animate-scaleIn {
+    animation: scaleIn 0.4s ease-out;
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+.animate-floatSlow {
+    animation: floatSlow 4s ease-in-out infinite;
+}
+
+.animate-shimmer {
+    animation: shimmer 2s infinite;
+}
+
+.animate-pulse {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.animate-glow {
+    animation: glow 2s ease-in-out infinite;
+}
+
+.animate-bounce {
+    animation: bounce 2s ease-in-out infinite;
+}
+
+.animate-heartBeat {
+    animation: heartBeat 0.6s ease-in-out;
+}
+
+/* Stagger delay utilities */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+.delay-600 { animation-delay: 0.6s; }
+.delay-700 { animation-delay: 0.7s; }
+.delay-800 { animation-delay: 0.8s; }
+
+/* Smooth transitions */
+.transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.transition-smooth-fast {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.transition-smooth-slow {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }

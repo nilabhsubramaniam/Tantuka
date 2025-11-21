@@ -6,7 +6,7 @@ import os
 from pathlib import Path
 
 # Create static directory if it doesn't exist
-static_dir = Path("/home/nilabh/Projects/Tantuka/backend/app/static")
+static_dir = Path(__file__).parent / "static"
 static_dir.mkdir(parents=True, exist_ok=True)
 
 app = FastAPI(

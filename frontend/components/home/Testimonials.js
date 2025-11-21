@@ -8,21 +8,21 @@ const Testimonials = () => {
             name: 'Priya Sharma',
             role: 'Fashion Influencer',
             content: 'The craftsmanship in Tantuka\'s Chikankari pieces is unparalleled. The attention to detail and quality of the fabric is something I haven\'t found elsewhere. Truly a work of art!',
-            image: '/images/testimonial-1.jpg',
+            image: '/images/testimonials/testimonial-1.jpg',
         },
         {
             id: 2,
             name: 'Aisha Patel',
             role: 'Customer',
             content: 'I ordered a kurta for my sister\'s wedding and was blown away by the quality. The embroidery is so intricate and beautiful. I\'ve received countless compliments and will definitely be ordering again.',
-            image: '/images/testimonial-2.jpg',
+            image: '/images/testimonials/testimonial-2.jpg',
         },
         {
             id: 3,
             name: 'Raj Malhotra',
             role: 'Fashion Designer',
             content: 'As someone who works in the fashion industry, I appreciate the effort that goes into preserving traditional craftsmanship. Tantuka is doing an amazing job supporting artisans while creating gorgeous contemporary pieces.',
-            image: '/images/testimonial-3.jpg',
+            image: '/images/testimonials/testimonial-3.jpg',
         },
     ];
 
