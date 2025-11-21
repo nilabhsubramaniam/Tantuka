@@ -3,7 +3,6 @@ const nextConfig = {
     reactStrictMode: true,
     output: 'export',
     basePath: process.env.NODE_ENV === 'production' ? '/Tantuka' : '',
-    assetPrefix: process.env.NODE_ENV === 'production' ? '/Tantuka/' : '',
     images: {
         remotePatterns: [
             {
