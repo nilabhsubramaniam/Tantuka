@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
 import Link from 'next/link';
+import { getImagePath } from '../../utils/basePath';
 
 const SareeProductCard = ({ product }) => {
     const [isWishlisted, setIsWishlisted] = useState(false);
@@ -24,13 +24,12 @@ const SareeProductCard = ({ product }) => {
                     {!imageLoaded && (
                         <div className="absolute inset-0 bg-gradient-to-br from-primary-100 to-accent-50 animate-pulse" />
                     )}
-                    <Image
-                        src={product.image}
+                    <img
+                        src={getImagePath(product.image)}
                         alt={product.name}
-                        fill
-                        className={`object-cover transition-all duration-500 group-hover:scale-110
+                        className={`w-full h-full object-cover transition-all duration-500 group-hover:scale-110
                                   ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
-                        onLoadingComplete={() => setImageLoaded(true)}
+                        onLoad={() => setImageLoaded(true)}
                     />
 
                     {/* Overlay on Hover */}

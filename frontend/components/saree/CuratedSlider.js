@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 import Link from 'next/link';
+import { getImagePath } from '../../utils/basePath';
 
 const CuratedSlider = () => {
     const scrollRef = useRef(null);
@@ -161,11 +161,10 @@ const CuratedSlider = () => {
                                     >
                                         {/* Background Image */}
                                         <div className="relative h-full overflow-hidden">
-                                            <Image
-                                                src={collection.image}
+                                            <img
+                                                src={getImagePath(collection.image)}
                                                 alt={collection.title}
-                                                fill
-                                                className="object-cover group-hover:scale-110 transition-transform duration-500"
+                                                className="absolute w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                                             />
 
                                             {/* Gradient Overlay */}
