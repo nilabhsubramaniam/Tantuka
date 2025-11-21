@@ -5,7 +5,7 @@ const nextConfig = {
     reactStrictMode: true,
     output: 'export',
     basePath: isProd ? '/Tantuka' : '',
-    assetPrefix: isProd ? '/Tantuka/' : '',
+    assetPrefix: isProd ? '/Tantuka' : '',
     trailingSlash: true,
     images: {
         remotePatterns: [
