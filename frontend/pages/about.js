@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import Layout from '@/components/layout/Layout';
-import { getImagePath } from '@/utils/basePath';
+import Layout from '../components/layout/Layout';
+import { getImagePath } from '../utils/basePath';
 
 const About = () => {
     return (

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import Layout from '@/components/layout/Layout';
+import Layout from '../components/layout/Layout';
 
 const Contact = () => {
     const [formData, setFormData] = useState({
