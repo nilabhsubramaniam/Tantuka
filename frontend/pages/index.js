@@ -283,11 +283,10 @@ function FeaturedSarees() {
                         >
                             {/* Image */}
                             <div className="relative h-80 bg-primary-100 overflow-hidden">
-                                <Image
-                                    src={saree.image}
+                                <img
+                                    src={getImagePath(saree.image)}
                                     alt={saree.name}
-                                    fill
-                                    className="object-cover group-hover:scale-110 transition-transform duration-500"
+                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                                 />
                                 {saree.badge && (
                                     <div className="absolute top-4 right-4 bg-accent-600 text-white px-3 py-1 rounded-full text-sm font-semibold">

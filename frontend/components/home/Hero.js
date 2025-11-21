@@ -1,8 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Button from '../ui/Button';
+import { getImagePath } from '../../utils/basePath';
 
 const Hero = () => {
     return (
@@ -125,12 +125,10 @@ const Hero = () => {
                             <div className="relative rounded-3xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500">
                                 <div className="aspect-[3/4] bg-gradient-to-br from-primary-100 via-accent-50 to-sage-100 relative">
                                     {/* Hero Image */}
-                                    <Image
-                                        src="/images/hero/hero-chikankari.jpg"
+                                    <img
+                                        src={getImagePath("/images/hero/hero-chikankari.jpg")}
                                         alt="Exquisite Chikankari Embroidery"
-                                        fill
-                                        className="object-cover"
-                                        priority
+                                        className="w-full h-full object-cover"
                                     />
                                     
                                     {/* Subtle overlay for better text contrast on floating cards */}
