@@ -2,7 +2,8 @@
 const nextConfig = {
     reactStrictMode: true,
     output: 'export',
-    // Remove basePath for GitHub Pages - it causes more issues than it solves
+    basePath: '/Tantuka',
+    assetPrefix: '/Tantuka',
     images: {
         remotePatterns: [
             {
