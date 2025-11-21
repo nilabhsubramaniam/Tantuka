@@ -86,9 +86,9 @@ const Contact = () => {
                                         <div>
                                             <h3 className="font-semibold text-primary-900 mb-1">Address</h3>
                                             <p className="text-gray-700">
-                                                Hazratganj, Lucknow<br />
-                                                Uttar Pradesh, India<br />
-                                                226001
+                                                Vaishali<br />
+                                                Delhi, India<br />
+                                                110096
                                             </p>
                                         </div>
                                     </div>
