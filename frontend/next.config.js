@@ -1,9 +1,11 @@
 /** @type {import('next').NextConfig} */
+const isProd = process.env.NODE_ENV === 'production';
+
 const nextConfig = {
     reactStrictMode: true,
     output: 'export',
-    basePath: '/Tantuka',
-    assetPrefix: '/Tantuka/',
+    basePath: isProd ? '/Tantuka' : '',
+    assetPrefix: isProd ? '/Tantuka/' : '',
     trailingSlash: true,
     images: {
         remotePatterns: [
@@ -21,7 +23,7 @@ const nextConfig = {
         apiUrl: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1',
     },
     env: {
-        BASE_PATH: '/Tantuka',
+        BASE_PATH: isProd ? '/Tantuka' : '',
     },
 }
 
