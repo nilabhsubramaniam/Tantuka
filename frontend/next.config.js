@@ -2,9 +2,7 @@
 const nextConfig = {
     reactStrictMode: true,
     output: 'export',
-    basePath: '/Tantuka',
-    assetPrefix: '/Tantuka',
-    trailingSlash: true,
+    // Remove basePath for GitHub Pages - it causes more issues than it solves
     images: {
         remotePatterns: [
             {
@@ -15,8 +13,6 @@ const nextConfig = {
             },
         ],
         unoptimized: true, // Required for static export
-        loader: 'custom',
-        loaderFile: './imageLoader.js',
     },
     // API and backend configuration
     publicRuntimeConfig: {
