@@ -91,8 +91,11 @@ const CartPage = () => {
                                                     <button
                                                         type="button"
                                                         onClick={() => removeItem(item.key)}
-                                                        className="text-sm font-medium text-primary-400 transition hover:text-primary-600"
+                                                        className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-red-600 bg-red-50 border border-red-200 hover:bg-red-100 hover:border-red-300 transition-all"
                                                     >
+                                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                        </svg>
                                                         Remove
                                                     </button>
                                                 </div>
@@ -124,14 +127,17 @@ const CartPage = () => {
                                 );
                             })}
                         </AnimatePresence>
-                        <div className="flex items-center justify-between rounded-2xl border border-primary-100 bg-primary-50/40 px-4 py-3 text-xs text-primary-500">
-                            <span>{items.length} {items.length === 1 ? 'item' : 'items'}</span>
+                        <div className="flex items-center justify-between rounded-2xl border border-primary-100 bg-primary-50/40 px-4 py-3">
+                            <span className="text-sm text-primary-600">{items.length} {items.length === 1 ? 'item' : 'items'} in cart</span>
                             <button
                                 type="button"
-                                className="font-semibold text-primary-700 underline-offset-4 hover:underline"
+                                className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-primary-700 bg-white border border-primary-200 hover:bg-primary-50 hover:border-primary-300 transition-all"
                                 onClick={clearCart}
                             >
-                                Clear cart
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </svg>
+                                Clear Cart
                             </button>
                         </div>
                     </div>
