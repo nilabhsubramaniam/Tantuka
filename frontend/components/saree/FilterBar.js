@@ -8,7 +8,8 @@ const FilterBar = ({
     onClearAll, 
     sortBy, 
     onSortChange,
-    resultsCount 
+    resultsCount,
+    filterSummary
 }) => {
     const sortOptions = [
         { value: 'featured', label: 'Featured' },
@@ -52,6 +53,12 @@ const FilterBar = ({
                     {/* Middle: Active Filter Chips */}
                     <div className="flex-1 flex items-center gap-2 overflow-x-auto pb-1 md:pb-0 
                                   scrollbar-thin scrollbar-thumb-primary-300 scrollbar-track-primary-100">
+                        <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-primary-50 text-primary-600 text-xs font-medium whitespace-nowrap">
+                            <svg className="w-3.5 h-3.5 text-accent-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z" />
+                            </svg>
+                            {filterSummary}
+                        </div>
                         <AnimatePresence mode="popLayout">
                             {activeFilters.map((filter, index) => (
                                 <motion.div

@@ -131,6 +131,62 @@ const allProducts = [
     },
 ];
 
+const stateHighlights = [
+    { state: 'Uttar Pradesh', icon: '🧵', specialty: 'Lucknow Chikankari' },
+    { state: 'Tamil Nadu', icon: '⚜️', specialty: 'Kanchipuram Silk' },
+    { state: 'Kerala', icon: '✨', specialty: 'Kasavu Borders' },
+    { state: 'Maharashtra', icon: '🕊️', specialty: 'Paithani Zari' },
+    { state: 'Odisha', icon: '🎨', specialty: 'Sambalpuri Ikat' },
+    { state: 'Karnataka', icon: '🌸', specialty: 'Mysore Silk' },
+    { state: 'West Bengal', icon: '🌾', specialty: 'Tussar Elegance' },
+    { state: 'Madhya Pradesh', icon: '💎', specialty: 'Maheshwari Weaves' }
+];
+const stateHighlightMap = stateHighlights.reduce((acc, item) => {
+    acc[item.state] = item;
+    return acc;
+}, {});
+
+const presetFilters = [
+    {
+        label: 'Wedding Silks',
+        description: 'Pure silk + wedding occasions',
+        values: { fabric: ['Pure Silk'], occasion: ['Wedding'], priceRange: [2000, 10000] }
+    },
+    {
+        label: 'Festive Favorites',
+        description: 'Handwoven festive picks',
+        values: { weave: ['Handwoven'], occasion: ['Festive'] }
+    },
+    {
+        label: 'Under ₹2,000',
+        description: 'Budget-friendly daily wear',
+        values: { priceRange: [0, 2000] }
+    },
+    {
+        label: 'Lightweight Cottons',
+        description: 'Breathable cotton classics',
+        values: { fabric: ['Cotton', 'Silk Cotton'], occasion: ['Casual', 'Traditional'] }
+    }
+];
+
+const guidanceCards = [
+    {
+        title: 'Choose by Fabric',
+        emoji: '🧶',
+        copy: 'Silk drapes rich for weddings, while cotton-silk blends stay breathable for day-long wear.'
+    },
+    {
+        title: 'Match the Occasion',
+        emoji: '🎊',
+        copy: 'Festive invites call for zari highlights, whereas temple visits favor handloom cottons.'
+    },
+    {
+        title: 'Care & Longevity',
+        emoji: '🧺',
+        copy: 'Dry-clean pure silks, but gentle cold wash works for most cotton sarees. Store in muslin.'
+    }
+];
+
 export default function ExploreAllSarees() {
     const [filters, setFilters] = useState({
         fabric: [],
@@ -147,6 +203,34 @@ export default function ExploreAllSarees() {
     const [showFilters, setShowFilters] = useState(false);
     const [filteredProducts, setFilteredProducts] = useState(allProducts);
     const itemsPerPage = 12;
+
+    const totalStatesRepresented = new Set(allProducts.map(product => product.state)).size;
+
+    const applyPresetFilters = (presetValues) => {
+        setFilters(prev => ({
+            ...prev,
+            fabric: presetValues.fabric ?? prev.fabric,
+            state: presetValues.state ?? prev.state,
+            occasion: presetValues.occasion ?? prev.occasion,
+            priceRange: presetValues.priceRange ?? prev.priceRange,
+            colors: presetValues.colors ?? prev.colors,
+            weave: presetValues.weave ?? prev.weave,
+            inStock: presetValues.inStock ?? prev.inStock
+        }));
+        setShowFilters(false);
+    };
+
+    const handleStateFocus = (state) => {
+        setFilters(prev => ({
+            ...prev,
+            state: [state]
+        }));
+        setShowFilters(false);
+    };
+
+    const filterSummaryText = activeFilters.length
+        ? `${activeFilters.length} active ${activeFilters.length === 1 ? 'filter' : 'filters'}`
+        : 'No filters applied yet';
 
     // Filter and sort products
     useEffect(() => {
@@ -263,7 +347,7 @@ export default function ExploreAllSarees() {
                                 <span className="text-primary-300">•</span>
                                 <span className="flex items-center gap-1.5">
                                     <span className="w-1.5 h-1.5 bg-accent-500 rounded-full"></span>
-                                    8 States
+                                    {totalStatesRepresented} States
                                 </span>
                                 <span className="text-primary-300">•</span>
                                 <span className="flex items-center gap-1.5">
@@ -271,7 +355,27 @@ export default function ExploreAllSarees() {
                                     Handcrafted
                                 </span>
                             </div>
+
+                            <div className="mt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
+                                <motion.a
+                                    href="#filter-presets"
+                                    whileHover={{ scale: 1.03 }}
+                                    whileTap={{ scale: 0.97 }}
+                                    className="px-5 py-2.5 rounded-full bg-primary-900 text-white text-sm font-semibold shadow-soft hover:shadow-hover"
+                                >
+                                    Start with quick filters
+                                </motion.a>
+                                <motion.a
+                                    href="#saree-guide"
+                                    whileHover={{ scale: 1.03 }}
+                                    whileTap={{ scale: 0.97 }}
+                                    className="px-5 py-2.5 rounded-full bg-white border border-primary-200 text-sm text-primary-700 font-semibold shadow-soft hover:border-primary-300"
+                                >
+                                    How to pick a saree
+                                </motion.a>
+                            </div>
                         </div>
+
                     </div>
                 </motion.section>
 
@@ -284,7 +388,34 @@ export default function ExploreAllSarees() {
                     sortBy={sortBy}
                     onSortChange={setSortBy}
                     resultsCount={filteredProducts.length}
+                    filterSummary={filterSummaryText}
                 />
+
+                {/* Quick Preset Filters */}
+                <section id="filter-presets" className="bg-white border-b border-primary-50">
+                    <div className="container mx-auto px-4 py-5 max-w-7xl">
+                        <div className="flex items-center justify-between flex-wrap gap-2 mb-3">
+                            <div>
+                                <p className="text-sm font-semibold text-primary-900">Popular quick filters</p>
+                                <p className="text-xs text-primary-500">One tap to apply curated combinations</p>
+                            </div>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                            {presetFilters.map((preset) => (
+                                <motion.button
+                                    key={preset.label}
+                                    whileHover={{ scale: 1.02 }}
+                                    whileTap={{ scale: 0.98 }}
+                                    onClick={() => applyPresetFilters(preset.values)}
+                                    className="text-left px-4 py-3 rounded-2xl border border-primary-100 bg-gradient-to-br from-white to-primary-50/40 shadow-soft hover:border-primary-200"
+                                >
+                                    <div className="text-sm font-semibold text-primary-900">{preset.label}</div>
+                                    <div className="text-xs text-primary-500 mt-1">{preset.description}</div>
+                                </motion.button>
+                            ))}
+                        </div>
+                    </div>
+                </section>
 
                 {/* Main Content */}
                 <div className="container mx-auto px-4 py-6 max-w-7xl">
@@ -323,7 +454,7 @@ export default function ExploreAllSarees() {
                                                 ease: "easeOut"
                                             }}
                                         >
-                                            <SareeProductCard product={product} />
+                                            <SareeProductCard product={product} stateInfo={stateHighlightMap[product.state]} />
                                         </motion.div>
                                     ))}
                                 </motion.div>
@@ -340,6 +471,105 @@ export default function ExploreAllSarees() {
                         </div>
                     </div>
                 </div>
+
+                {/* Guidance Section */}
+                <section id="saree-guide" className="py-10 bg-gradient-to-br from-primary-50/40 via-white to-sage-50 border-y border-primary-100">
+                    <div className="container mx-auto px-4 max-w-6xl">
+                        <div className="flex flex-col lg:flex-row items-start gap-8">
+                            <div className="lg:w-1/3 space-y-3">
+                                <p className="text-xs uppercase tracking-[0.2em] text-primary-400">Need guidance?</p>
+                                <h2 className="text-2xl font-display font-bold text-primary-900">How to choose the right saree</h2>
+                                <p className="text-sm text-primary-600">
+                                    Start with the occasion, pick a fabric that suits the climate, and always check care instructions. These quick tips keep new shoppers confident.
+                                </p>
+                                <ul className="text-xs text-primary-500 space-y-1">
+                                    <li>• Tap a card to focus filters instantly</li>
+                                    <li>• Hover fabric names for glossary hints</li>
+                                    <li>• Keep 2-3 favorites saved for comparison</li>
+                                </ul>
+                            </div>
+                            <div className="flex-1 grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                {guidanceCards.map((card) => (
+                                    <motion.button
+                                        key={card.title}
+                                        whileHover={{ y: -4 }}
+                                        whileTap={{ scale: 0.98 }}
+                                        onClick={() => {
+                                            if (card.title.includes('Fabric')) {
+                                                applyPresetFilters({ fabric: ['Pure Silk', 'Cotton'] });
+                                            }
+                                        }}
+                                        className="text-left h-full px-4 py-5 rounded-2xl border border-primary-100 bg-white shadow-soft hover:shadow-hover"
+                                    >
+                                        <div className="text-2xl mb-2">{card.emoji}</div>
+                                        <h3 className="text-base font-semibold text-primary-900">{card.title}</h3>
+                                        <p className="text-sm text-primary-600 mt-2">{card.copy}</p>
+                                    </motion.button>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Browse by State - After seeing all products */}
+                <section id="state-map" className="bg-gradient-to-r from-primary-50/60 via-white to-sage-50 border-y border-primary-100/60">
+                    <div className="container mx-auto px-4 py-10 max-w-7xl">
+                        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+                            <div>
+                                <p className="text-xs uppercase tracking-[0.25em] text-primary-400">Artisan Origins</p>
+                                <h2 className="text-2xl font-display font-semibold text-primary-900">Discover by State</h2>
+                                <p className="text-sm text-primary-600">Explore regional weaving traditions and filter by artisan origin.</p>
+                            </div>
+                            {filters.state.length > 0 && (
+                                <button
+                                    className="text-sm text-accent-600 font-semibold flex items-center gap-1 hover:text-accent-700"
+                                    onClick={() => setFilters(prev => ({ ...prev, state: [] }))}
+                                >
+                                    Clear state filter
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            )}
+                        </div>
+                        <div className="relative">
+                            <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-primary-300 scrollbar-track-primary-100">
+                                {stateHighlights.map((item, idx) => (
+                                    <motion.button
+                                        key={item.state}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 0.3, delay: idx * 0.05 }}
+                                        whileHover={{ y: -6 }}
+                                        whileTap={{ scale: 0.98 }}
+                                        onClick={() => handleStateFocus(item.state)}
+                                        className={`min-w-[220px] text-left px-5 py-4 rounded-3xl border shadow-soft hover:shadow-hover snap-start transition-all ${
+                                            filters.state.includes(item.state)
+                                                ? 'border-accent-500 bg-accent-50'
+                                                : 'border-primary-100 bg-white'
+                                        }`}
+                                    >
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-3xl" aria-hidden>{item.icon}</span>
+                                            {filters.state.includes(item.state) && (
+                                                <span className="text-xs text-accent-600 font-bold">✓ Active</span>
+                                            )}
+                                        </div>
+                                        <p className="text-sm font-semibold text-primary-900 mt-3">{item.state}</p>
+                                        <p className="text-xs text-primary-500">{item.specialty}</p>
+                                        <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-accent-600">
+                                            {filters.state.includes(item.state) ? 'Applied' : 'Filter by state'}
+                                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                            </svg>
+                                        </span>
+                                    </motion.button>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </section>
 
                 {/* Featured Curated Slider */}
                 <CuratedSlider />

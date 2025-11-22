@@ -3,13 +3,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { getImagePath } from '../../utils/basePath';
 
-const SareeProductCard = ({ product }) => {
+const SareeProductCard = ({ product, stateInfo }) => {
     const [isWishlisted, setIsWishlisted] = useState(false);
     const [imageLoaded, setImageLoaded] = useState(false);
 
     const discount = product.originalPrice 
         ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
         : 0;
+    const shippingInfo = product.inStock ? 'Ships within 3 business days' : 'Currently weaving • Dispatch in 2 weeks';
 
     return (
         <motion.div
@@ -117,18 +118,20 @@ const SareeProductCard = ({ product }) => {
 
             {/* Content */}
             <div className="p-5">
-                {/* State Tag */}
-                <div className="flex items-center gap-2 mb-2">
-                    <span className="text-xs font-semibold text-accent-600 bg-accent-50 
-                                   px-3 py-1 rounded-full">
-                        {product.state}
-                    </span>
-                    {product.weave && (
-                        <span className="text-xs text-primary-500 bg-primary-50 px-3 py-1 rounded-full">
-                            {product.weave}
+                {/* Subtle State Tag */}
+                {stateInfo && (
+                    <div className="flex items-center gap-2 mb-3">
+                        <span className="text-xs font-medium text-primary-600 bg-primary-50 px-3 py-1 rounded-full flex items-center gap-1.5">
+                            <span aria-hidden>{stateInfo.icon}</span>
+                            {stateInfo.state}
                         </span>
-                    )}
-                </div>
+                        {product.weave && (
+                            <span className="text-xs text-primary-500 bg-primary-50/50 px-2 py-1 rounded">
+                                {product.weave}
+                            </span>
+                        )}
+                    </div>
+                )}
 
                 {/* Title */}
                 <Link href={`/products/${product.id}`}>
@@ -186,6 +189,23 @@ const SareeProductCard = ({ product }) => {
                             ₹{product.originalPrice.toLocaleString('en-IN')}
                         </span>
                     )}
+                </div>
+
+                <p className="text-xs text-primary-500 mb-4">{shippingInfo}</p>
+
+                <div className="flex items-center gap-3 mb-4">
+                    <Link
+                        href={`/products/${product.id}#story`}
+                        className="flex-1 text-center text-xs font-semibold text-primary-900 border border-primary-200 rounded-full py-2 hover:border-primary-400 transition-colors"
+                    >
+                        View story
+                    </Link>
+                    <button
+                        type="button"
+                        className="flex-1 text-center text-xs font-semibold text-primary-600 border border-dashed border-primary-200 rounded-full py-2 hover:border-primary-400"
+                    >
+                        Compare
+                    </button>
                 </div>
 
                 {/* Add to Cart Button */}
