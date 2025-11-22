@@ -4,31 +4,19 @@ import Layout from '../../components/layout/Layout';
 import Button from '../../components/ui/Button';
 import { getImagePath } from '../../utils/basePath';
 
-export default function ProductDetail() {
-    const router = useRouter();
-    const { slug } = router.query;
-
-    // State for selected size and quantity
-    const [selectedSize, setSelectedSize] = useState('');
-    const [quantity, setQuantity] = useState(1);
-
-    // State for active image
-    const [activeImageIndex, setActiveImageIndex] = useState(0);
-
-    // Mock product data - would come from API
-    const product = {
+// Mock products database - in a real app, this would come from an API
+const allProducts = [
+    {
         id: 1,
         name: 'Hand Embroidered White Chikankari Kurta',
         slug: 'white-chikankari-kurta',
-        description: `
-      This exquisite white chikankari kurta is handcrafted by skilled artisans from Lucknow. 
-      Made from premium cotton fabric, it features intricate hand embroidery with traditional 
-      chikankari stitches including tepchi, bakhiya, and jali work.
-      
-      The elegant and timeless design makes it perfect for both casual and festive occasions. 
-      Each piece is unique and showcases the exceptional craftsmanship that has been passed down 
-      through generations.
-    `,
+        description: `This exquisite white chikankari kurta is handcrafted by skilled artisans from Lucknow. 
+Made from premium cotton fabric, it features intricate hand embroidery with traditional 
+chikankari stitches including tepchi, bakhiya, and jali work.
+
+The elegant and timeless design makes it perfect for both casual and festive occasions. 
+Each piece is unique and showcases the exceptional craftsmanship that has been passed down 
+through generations.`,
         price: 2499,
         originalPrice: 2999,
         sizes: ['XS', 'S', 'M', 'L', 'XL'],
@@ -54,7 +42,231 @@ export default function ProductDetail() {
         ],
         inStock: true,
         stockQuantity: 10,
-    };
+        category: 'kurtas',
+    },
+    {
+        id: 2,
+        name: 'Elegant Cotton Chikankari Saree',
+        slug: 'cotton-chikankari-saree',
+        description: `A stunning cotton saree adorned with delicate Chikankari embroidery from the heart of Lucknow. 
+This saree combines traditional craftsmanship with contemporary elegance.
+
+Perfect for festive occasions and special celebrations. The lightweight cotton fabric ensures 
+comfort while the intricate embroidery adds a touch of sophistication and grace.`,
+        price: 5999,
+        originalPrice: 7499,
+        sizes: ['One Size'],
+        images: [
+            '/images/products/pexels-vishalcreation-14205208.jpg',
+            '/images/products/pexels-rajeshverma-13192034.jpg',
+            '/images/products/pexels-rajeshverma-13237383.jpg',
+            '/images/products/pexels-shahin134053-10397381.jpg',
+        ],
+        details: [
+            'Pure cotton fabric',
+            'Hand-embroidered Chikankari work',
+            'Length: 6.5 meters',
+            'Includes unstitched blouse piece',
+            'Traditional Lucknowi craftsmanship',
+        ],
+        care: [
+            'Gentle hand wash recommended',
+            'Use mild detergent',
+            'Dry in shade',
+            'Iron on reverse side',
+            'Store in a muslin cloth',
+        ],
+        inStock: true,
+        stockQuantity: 5,
+        category: 'sarees',
+    },
+    {
+        id: 3,
+        name: 'Chikankari Embroidered Palazzo Set',
+        slug: 'chikankari-palazzo-set',
+        description: `Contemporary palazzo set featuring exquisite Chikankari embroidery. 
+This modern ensemble combines traditional art with contemporary design for the perfect fusion wear.
+
+The flowing palazzo pants paired with an embroidered kurta create an elegant and comfortable outfit 
+suitable for both casual and semi-formal occasions.`,
+        price: 3499,
+        originalPrice: 3999,
+        sizes: ['S', 'M', 'L', 'XL'],
+        images: [
+            '/images/products/pexels-rajeshverma-13237383.jpg',
+            '/images/products/pexels-darkmodecinema-19567892.jpg',
+            '/images/products/pexels-rajeshverma-13192034.jpg',
+            '/images/products/pexels-vishalcreation-14205208.jpg',
+        ],
+        details: [
+            'Premium cotton blend fabric',
+            'Chikankari embroidered kurta',
+            'Matching palazzo pants',
+            'Contemporary fusion design',
+            'Comfortable fit',
+        ],
+        care: [
+            'Machine wash on gentle cycle',
+            'Use cold water',
+            'Do not bleach',
+            'Iron on medium heat',
+            'Dry in shade',
+        ],
+        inStock: true,
+        stockQuantity: 8,
+        category: 'kurtas',
+    },
+    {
+        id: 4,
+        name: 'Pure Georgette Chikankari Dupatta',
+        slug: 'georgette-chikankari-dupatta',
+        description: `An elegant georgette dupatta embellished with fine Chikankari embroidery. 
+This versatile piece can elevate any outfit with its delicate craftsmanship.
+
+The lightweight fabric drapes beautifully while the intricate embroidery adds a touch of 
+traditional elegance to your ensemble.`,
+        price: 1899,
+        originalPrice: 2199,
+        sizes: ['One Size'],
+        images: [
+            '/images/products/pexels-darkmodecinema-19567892.jpg',
+            '/images/products/pexels-shahin134053-10397381.jpg',
+            '/images/products/pexels-rajeshverma-13192034.jpg',
+            '/images/products/pexels-vishalcreation-14205208.jpg',
+        ],
+        details: [
+            'Pure georgette fabric',
+            'Hand-embroidered Chikankari',
+            'Length: 2.5 meters',
+            'Lightweight and airy',
+            'Versatile styling options',
+        ],
+        care: [
+            'Dry clean recommended',
+            'Or gentle hand wash',
+            'Do not wring',
+            'Iron on low heat',
+            'Store folded in muslin',
+        ],
+        inStock: true,
+        stockQuantity: 15,
+        category: 'dupattas',
+    },
+    {
+        id: 5,
+        name: 'Embroidered Chikankari Linen Kurta',
+        slug: 'linen-chikankari-kurta',
+        description: `A premium linen kurta featuring beautiful Chikankari embroidery. 
+Perfect for summer wear with its breathable fabric and elegant design.
+
+The natural linen fabric combined with traditional embroidery creates a sophisticated 
+look that's perfect for both casual and formal occasions.`,
+        price: 2899,
+        originalPrice: null,
+        sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+        images: [
+            '/images/products/pexels-shahin134053-10397381.jpg',
+            '/images/products/pexels-rajeshverma-13192034.jpg',
+            '/images/products/pexels-vishalcreation-14205208.jpg',
+            '/images/products/pexels-darkmodecinema-19567892.jpg',
+        ],
+        details: [
+            'Premium linen fabric',
+            'Traditional Chikankari work',
+            'Breathable and comfortable',
+            'Perfect for summer',
+            'Classic straight cut',
+        ],
+        care: [
+            'Hand wash or gentle machine wash',
+            'Use mild detergent',
+            'Do not bleach',
+            'Iron while slightly damp',
+            'Dry in shade',
+        ],
+        inStock: true,
+        stockQuantity: 12,
+        category: 'kurtas',
+    },
+    {
+        id: 6,
+        name: 'Designer Chikankari Anarkali Suit',
+        slug: 'chikankari-anarkali-suit',
+        description: `A stunning designer Anarkali suit with intricate Chikankari embroidery. 
+This elegant ensemble is perfect for weddings, festivals, and special celebrations.
+
+The flowing Anarkali silhouette combined with delicate embroidery creates a regal look 
+that's sure to make you stand out at any occasion.`,
+        price: 4999,
+        originalPrice: 6299,
+        sizes: ['XS', 'S', 'M', 'L', 'XL'],
+        images: [
+            '/images/products/pexels-rajeshverma-13192185(1).jpg',
+            '/images/products/pexels-vishalcreation-14205208.jpg',
+            '/images/products/pexels-rajeshverma-13237383.jpg',
+            '/images/products/pexels-darkmodecinema-19567892.jpg',
+        ],
+        details: [
+            'Premium georgette fabric',
+            'Heavy Chikankari embroidery',
+            'Includes dupatta and churidar',
+            'Floor-length Anarkali',
+            'Designer collection',
+        ],
+        care: [
+            'Dry clean only',
+            'Store in a garment bag',
+            'Do not bleach',
+            'Iron on reverse side',
+            'Keep away from direct sunlight',
+        ],
+        inStock: true,
+        stockQuantity: 6,
+        category: 'dresses',
+    },
+];
+
+export default function ProductDetail() {
+    const router = useRouter();
+    const { slug } = router.query;
+
+    // State for selected size and quantity
+    const [selectedSize, setSelectedSize] = useState('');
+    const [quantity, setQuantity] = useState(1);
+
+    // State for active image
+    const [activeImageIndex, setActiveImageIndex] = useState(0);
+
+    // Find product by slug or id
+    const product = allProducts.find(p => 
+        p.slug === slug || p.id === parseInt(slug)
+    );
+
+    // If product not found, show error
+    if (!product && slug) {
+        return (
+            <Layout title="Product Not Found">
+                <div className="container mx-auto px-4 py-16 text-center">
+                    <h1 className="text-3xl font-bold text-gray-900 mb-4">Product Not Found</h1>
+                    <p className="text-gray-600 mb-8">The product you're looking for doesn't exist.</p>
+                    <Button onClick={() => router.push('/products')}>
+                        Back to Products
+                    </Button>
+                </div>
+            </Layout>
+        );
+    }
+
+    // Show loading state while router is initializing
+    if (!slug || !product) {
+        return (
+            <Layout title="Loading...">
+                <div className="container mx-auto px-4 py-16 text-center">
+                    <p className="text-gray-600">Loading...</p>
+                </div>
+            </Layout>
+        );
+    }
 
     // Handle add to cart
     const handleAddToCart = () => {
