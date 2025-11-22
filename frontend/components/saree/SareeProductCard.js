@@ -33,32 +33,63 @@ const SareeProductCard = ({ product, stateInfo }) => {
                         onLoad={() => setImageLoaded(true)}
                     />
 
-                    {/* Overlay on Hover */}
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        whileHover={{ opacity: 1 }}
-                        transition={{ duration: 0.3 }}
-                        className="absolute inset-0 bg-gradient-to-t from-primary-900/60 via-primary-900/20 to-transparent 
-                                 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    />
-
-                    {/* Quick View Button */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileHover={{ opacity: 1, y: 0 }}
-                        className="absolute inset-x-0 bottom-0 p-4 opacity-0 group-hover:opacity-100 
-                                 transition-all duration-300"
-                    >
+                    {/* Quick Action Icons - Always visible on bottom */}
+                    <div className="absolute inset-x-0 bottom-0 p-3 flex items-center justify-center gap-2">
                         <motion.button
-                            whileHover={{ scale: 1.05 }}
+                            whileHover={{ scale: 1.1, y: -2 }}
                             whileTap={{ scale: 0.95 }}
-                            className="w-full py-3 bg-white text-primary-900 rounded-xl font-semibold 
-                                     hover:bg-accent-500 hover:text-white transition-all duration-300 
-                                     shadow-lg"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                // Handle quick view
+                            }}
+                            className="w-10 h-10 flex items-center justify-center bg-white/95 backdrop-blur-sm 
+                                     rounded-full shadow-md hover:bg-accent-500 hover:text-white 
+                                     transition-all duration-200 group/btn"
+                            title="Quick View"
                         >
-                            Quick View
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
+                                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
+                                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
                         </motion.button>
-                    </motion.div>
+                        
+                        <motion.button
+                            whileHover={{ scale: 1.1, y: -2 }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                // Handle add to cart
+                            }}
+                            className="w-10 h-10 flex items-center justify-center bg-primary-900 text-white 
+                                     rounded-full shadow-md hover:bg-accent-500 transition-all duration-200"
+                            title="Add to Cart"
+                        >
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
+                                      d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg>
+                        </motion.button>
+
+                        <motion.button
+                            whileHover={{ scale: 1.1, y: -2 }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                // Handle compare
+                            }}
+                            className="w-10 h-10 flex items-center justify-center bg-white/95 backdrop-blur-sm 
+                                     rounded-full shadow-md hover:bg-accent-500 hover:text-white 
+                                     transition-all duration-200"
+                            title="Compare"
+                        >
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
+                                      d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                            </svg>
+                        </motion.button>
+                    </div>
 
                     {/* Badges */}
                     <div className="absolute top-4 left-4 flex flex-col gap-2">
@@ -191,37 +222,25 @@ const SareeProductCard = ({ product, stateInfo }) => {
                     )}
                 </div>
 
-                <p className="text-xs text-primary-500 mb-4">{shippingInfo}</p>
+                <p className="text-xs text-primary-500 mb-4 flex items-center gap-2">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
+                              d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+                    </svg>
+                    {shippingInfo}
+                </p>
 
-                <div className="flex items-center gap-3 mb-4">
-                    <Link
-                        href={`/products/${product.id}#story`}
-                        className="flex-1 text-center text-xs font-semibold text-primary-900 border border-primary-200 rounded-full py-2 hover:border-primary-400 transition-colors"
+                {/* Main CTA */}
+                <Link href={`/products/${product.id}`}>
+                    <motion.button
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="w-full py-3 rounded-xl font-semibold transition-all duration-300 
+                                  shadow-soft hover:shadow-hover bg-primary-900 text-white hover:bg-primary-800"
                     >
-                        View story
-                    </Link>
-                    <button
-                        type="button"
-                        className="flex-1 text-center text-xs font-semibold text-primary-600 border border-dashed border-primary-200 rounded-full py-2 hover:border-primary-400"
-                    >
-                        Compare
-                    </button>
-                </div>
-
-                {/* Add to Cart Button */}
-                <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    disabled={!product.inStock}
-                    className={`w-full py-3 rounded-xl font-semibold transition-all duration-300 
-                              shadow-soft hover:shadow-hover ${
-                                  product.inStock
-                                      ? 'bg-primary-900 text-white hover:bg-primary-800'
-                                      : 'bg-primary-100 text-primary-400 cursor-not-allowed'
-                              }`}
-                >
-                    {product.inStock ? 'Add to Cart' : 'Out of Stock'}
-                </motion.button>
+                        View Details
+                    </motion.button>
+                </Link>
             </div>
         </motion.div>
     );
