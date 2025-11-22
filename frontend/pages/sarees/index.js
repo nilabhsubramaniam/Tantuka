@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Layout from '../../components/layout/Layout';
+import { getImagePath } from '../../utils/basePath';
 
 // Premium Saree Collections Data with high-quality images
 const collections = [
@@ -203,7 +204,7 @@ export default function SareesPage() {
                                             >
                                                 <div className="relative w-full h-full rounded-xl overflow-hidden shadow-lg">
                                                     <img
-                                                        src={collections[currentIndex].image}
+                                                        src={getImagePath(collections[currentIndex].image)}
                                                         alt={collections[currentIndex].name}
                                                         className="w-full h-full object-cover"
                                                     />

@@ -6,6 +6,7 @@ import FilterBar from '../../components/saree/FilterBar';
 import SareeProductCard from '../../components/saree/SareeProductCard';
 import CuratedSlider from '../../components/saree/CuratedSlider';
 import Pagination from '../../components/ui/Pagination';
+import CustomSelect from '../../components/ui/CustomSelect';
 
 // Sample product data - replace with API call
 const allProducts = [

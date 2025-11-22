@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Layout from '../components/layout/Layout';
+import CustomSelect from '../components/ui/CustomSelect';
 
 const Contact = () => {
     const [formData, setFormData] = useState({
@@ -225,26 +226,23 @@ const Contact = () => {
                                         </div>
 
                                         <div>
-                                            <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
+                                            <label htmlFor="subject" className="block text-sm font-medium text-primary-900 font-display mb-2">
                                                 Subject *
                                             </label>
-                                            <select
-                                                id="subject"
-                                                name="subject"
+                                            <CustomSelect
                                                 value={formData.subject}
-                                                onChange={handleChange}
-                                                required
-                                                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-accent-500 focus:border-transparent transition-all"
-                                            >
-                                                <option value="">Select a subject</option>
-                                                <option value="product-inquiry">Product Inquiry</option>
-                                                <option value="order-status">Order Status</option>
-                                                <option value="custom-order">Custom Order</option>
-                                                <option value="wholesale">Wholesale Inquiry</option>
-                                                <option value="collaboration">Collaboration</option>
-                                                <option value="feedback">Feedback</option>
-                                                <option value="other">Other</option>
-                                            </select>
+                                                onChange={(value) => setFormData({ ...formData, subject: value })}
+                                                options={[
+                                                    { value: '', label: 'Select a subject' },
+                                                    { value: 'product-inquiry', label: 'Product Inquiry' },
+                                                    { value: 'order-status', label: 'Order Status' },
+                                                    { value: 'custom-order', label: 'Custom Order' },
+                                                    { value: 'wholesale', label: 'Wholesale Inquiry' },
+                                                    { value: 'collaboration', label: 'Collaboration' },
+                                                    { value: 'feedback', label: 'Feedback' },
+                                                    { value: 'other', label: 'Other' }
+                                                ]}
+                                            />
                                         </div>
                                     </div>
 

@@ -121,7 +121,12 @@ export default function Products() {
                         <select
                             value={sortBy}
                             onChange={(e) => setSortBy(e.target.value)}
-                            className="block w-full p-2 border border-gray-300 rounded-md text-sm"
+                            className="appearance-none px-4 py-2.5 pr-10 bg-white border border-primary-300 rounded-lg
+                                     text-sm text-primary-900 font-medium
+                                     focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500
+                                     transition-all cursor-pointer hover:border-accent-400
+                                     shadow-sm hover:shadow-md
+                                     bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iOCIgdmlld0JveD0iMCAwIDEyIDgiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEgMUw2IDZMMTEgMSIgc3Ryb2tlPSIjMzMzIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==')] bg-[length:12px] bg-[right_1rem_center] bg-no-repeat"
                         >
                             <option value="featured">Featured</option>
                             <option value="newest">Newest Arrivals</option>

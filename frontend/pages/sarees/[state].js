@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Layout from '../../components/layout/Layout';
+import { getImagePath } from '../../utils/basePath';
+import CustomSelect from '../../components/ui/CustomSelect';
 
 // State data mapping with all information
 const STATES_DATA = {
@@ -242,11 +243,10 @@ const StateDetailPage = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="relative h-96 rounded-lg overflow-hidden shadow-2xl"
             >
-              <Image
-                src={stateData.image}
+              <img
+                src={getImagePath(stateData.image)}
                 alt={stateData.name}
-                fill
-                className="object-cover"
+                className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
             </motion.div>
@@ -263,19 +263,20 @@ const StateDetailPage = () => {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-4">
-              <label className="text-sm font-semibold text-primary-900">Sort By:</label>
-              <select
+            <div className="flex items-center gap-4 w-full sm:w-auto">
+              <label className="text-sm font-semibold text-primary-900 font-display whitespace-nowrap">Sort By:</label>
+              <CustomSelect
                 value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-                className="px-4 py-2 border border-primary-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-500"
-              >
-                <option value="popular">Most Popular</option>
-                <option value="price-low">Price: Low to High</option>
-                <option value="price-high">Price: High to Low</option>
-                <option value="rating">Highest Rated</option>
-                <option value="newest">Newest First</option>
-              </select>
+                onChange={(value) => setSortBy(value)}
+                options={[
+                  { value: 'popular', label: 'Most Popular' },
+                  { value: 'price-low', label: 'Price: Low to High' },
+                  { value: 'price-high', label: 'Price: High to Low' },
+                  { value: 'rating', label: 'Highest Rated' },
+                  { value: 'newest', label: 'Newest First' }
+                ]}
+                className="flex-1 sm:w-64"
+              />
             </div>
             <div className="text-sm text-primary-600">
               Showing <span className="font-semibold text-accent-600">{sarees.length}</span> products
@@ -318,11 +319,10 @@ const StateDetailPage = () => {
               >
                 {/* Product Image */}
                 <div className="relative h-72 rounded-t-xl overflow-hidden bg-primary-100">
-                  <Image
-                    src={saree.image}
+                  <img
+                    src={getImagePath(saree.image)}
                     alt={saree.name}
-                    fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                   {saree.badge && (
                     <div className="absolute top-4 right-4 bg-accent-600 text-white px-3 py-1 rounded-full text-sm font-semibold">

@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import CustomSelect from '../ui/CustomSelect';
 
 const FilterBar = ({ 
     onFilterClick, 
@@ -113,28 +114,12 @@ const FilterBar = ({
                             <span className="font-semibold text-primary-900">{resultsCount}</span> Results
                         </span>
                         
-                        <div className="relative">
-                            <select
-                                value={sortBy}
-                                onChange={(e) => onSortChange(e.target.value)}
-                                className="appearance-none pl-3 pr-8 py-2 bg-white border border-primary-200 
-                                         rounded-full text-xs text-primary-700 font-medium
-                                         focus:ring-2 focus:ring-accent-200 focus:border-accent-500 
-                                         transition-all cursor-pointer hover:border-primary-300 
-                                         shadow-sm hover:shadow-md"
-                            >
-                                {sortOptions.map((option) => (
-                                    <option key={option.value} value={option.value}>
-                                        {option.label}
-                                    </option>
-                                ))}
-                            </select>
-                            <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none">
-                                <svg className="w-4 h-4 text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                                </svg>
-                            </div>
-                        </div>
+                        <CustomSelect
+                            value={sortBy}
+                            onChange={(value) => onSortChange(value)}
+                            options={sortOptions}
+                            className="w-48"
+                        />
                     </div>
                 </div>
             </div>

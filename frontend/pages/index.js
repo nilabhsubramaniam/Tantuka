@@ -37,7 +37,7 @@ export default function Home() {
 // Premium Saree Hero Section
 function SareeHero() {
     return (
-        <div className="relative overflow-hidden bg-gradient-to-br from-primary-50 via-white to-sage-50 min-h-screen pt-8 md:pt-20">
+        <div className="relative overflow-hidden bg-gradient-to-br from-primary-50 via-white to-sage-50 min-h-screen pt-4 md:pt-8">
             {/* Decorative Background */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute top-20 right-10 w-96 h-96 bg-gold-200/15 rounded-full blur-3xl animate-float"></div>
