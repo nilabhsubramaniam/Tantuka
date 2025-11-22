@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, useAnimation } from 'framer-motion';
 import { useCart } from '../../context/CartContext';
 
 const Header = () => {
@@ -10,6 +10,28 @@ const Header = () => {
     const cartCount = totalItems || 0;
     const displayCount = cartCount > 99 ? '99+' : cartCount;
     const showCartBadge = cartCount > 0;
+    const cartIconControls = useAnimation();
+
+    // Listen for cart item added event
+    useEffect(() => {
+        const handleCartItemAdded = () => {
+            // Bounce animation sequence
+            cartIconControls.start({
+                scale: [1, 1.3, 0.9, 1.1, 1],
+                rotate: [0, -10, 10, -5, 0],
+                transition: {
+                    duration: 0.6,
+                    times: [0, 0.2, 0.4, 0.6, 1],
+                    ease: "easeInOut"
+                }
+            });
+        };
+
+        if (typeof window !== 'undefined') {
+            window.addEventListener('cart-item-added', handleCartItemAdded);
+            return () => window.removeEventListener('cart-item-added', handleCartItemAdded);
+        }
+    }, [cartIconControls]);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -121,7 +143,11 @@ const Header = () => {
                             </Link>
                         </motion.div>
 
-                        <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                        <motion.div 
+                            whileHover={{ scale: 1.1 }} 
+                            whileTap={{ scale: 0.9 }}
+                            animate={cartIconControls}
+                        >
                             <Link href="/cart" className="text-gray-700 hover:text-primary-600 relative">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
@@ -131,6 +157,7 @@ const Header = () => {
                                         key={displayCount}
                                         initial={{ scale: 0 }}
                                         animate={{ scale: 1 }}
+                                        transition={{ type: "spring", stiffness: 500, damping: 15 }}
                                         className="absolute -top-1 -right-1 bg-accent-600 text-white rounded-full text-[10px] min-w-[1.25rem] h-5 px-1 flex items-center justify-center font-bold shadow-sm"
                                         aria-label={`${cartCount} items in cart`}
                                     >
@@ -202,13 +229,23 @@ const Header = () => {
                                 </svg>
                             </Link>
                             <Link href="/cart" className="text-gray-700 hover:text-primary-600 relative">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                                </svg>
+                                <motion.div
+                                    animate={cartIconControls}
+                                    transition={{ type: 'spring', stiffness: 500, damping: 15 }}
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                                    </svg>
+                                </motion.div>
                                 {showCartBadge && (
-                                    <span className="absolute -top-1 -right-1 bg-accent-600 text-white rounded-full text-[10px] min-w-[1.2rem] h-5 px-1 flex items-center justify-center font-bold">
+                                    <motion.span
+                                        className="absolute -top-1 -right-1 bg-accent-600 text-white rounded-full text-[10px] min-w-[1.2rem] h-5 px-1 flex items-center justify-center font-bold"
+                                        initial={{ scale: 0 }}
+                                        animate={{ scale: 1 }}
+                                        transition={{ type: 'spring', stiffness: 500, damping: 15 }}
+                                    >
                                         {displayCount}
-                                    </span>
+                                    </motion.span>
                                 )}
                             </Link>
                         </div>

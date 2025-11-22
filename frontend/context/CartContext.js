@@ -117,18 +117,43 @@ export function CartProvider({ children }) {
     };
     dispatch({ type: 'ADD_ITEM', payload: { item } });
 
-    // Friendly notification
+    // Friendly notification with product image and actions
     try {
       const labelParts = [];
       if (item.color) labelParts.push(item.color);
       if (item.size) labelParts.push(item.size);
       const label = labelParts.length ? ` (${labelParts.join(' • ')})` : '';
+      
       notify({
-        title: 'Added to cart',
+        title: '✓ Added to cart',
         message: `${item.name}${label} × ${item.quantity}`,
         type: 'success',
-        duration: 3500,
+        duration: 4000,
+        image: item.image,
+        actions: [
+          {
+            label: 'View Cart',
+            primary: true,
+            onClick: () => {
+              if (typeof window !== 'undefined') {
+                window.location.href = '/cart';
+              }
+            },
+          },
+          {
+            label: 'Continue Shopping',
+            primary: false,
+            onClick: () => {
+              // Just dismiss the notification
+            },
+          },
+        ],
       });
+      
+      // Trigger cart icon animation
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('cart-item-added'));
+      }
     } catch (err) {
       // ignore if notification system isn't available
       console.warn('Notify failed', err);

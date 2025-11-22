@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import Layout from '../../components/layout/Layout';
 import Button from '../../components/ui/Button';
 import Breadcrumbs from '../../components/ui/Breadcrumbs';
+import ProductConfigurator from '../../components/cart/ProductConfigurator';
 import { getImagePath } from '../../utils/basePath';
 import { useCart } from '../../context/CartContext';
 import { useNotification } from '../../context/NotificationContext';
@@ -451,9 +452,8 @@ export default function ProductDetail() {
     const { addItem } = useCart();
     const { notify } = useNotification();
 
-    // State for selected size and quantity
-    const [selectedSize, setSelectedSize] = useState('');
-    const [quantity, setQuantity] = useState(1);
+    // State for configurator modal
+    const [isConfiguratorOpen, setIsConfiguratorOpen] = useState(false);
 
     // State for active image
     const [activeImageIndex, setActiveImageIndex] = useState(0);
@@ -463,8 +463,18 @@ export default function ProductDetail() {
         p.slug === slug || p.id === parseInt(slug)
     );
 
-    // If product not found, show error
-    if (!product && slug) {
+    // Handle all loading and error states first
+    if (router.isFallback) {
+        return (
+            <Layout title="Loading...">
+                <div className="container mx-auto px-4 py-12 flex justify-center">
+                    <p>Loading product...</p>
+                </div>
+            </Layout>
+        );
+    }
+
+    if (!slug || !product) {
         return (
             <Layout title="Product Not Found">
                 <div className="container mx-auto px-4 py-16 text-center">
@@ -478,64 +488,24 @@ export default function ProductDetail() {
         );
     }
 
-    // Show loading state while router is initializing
-    if (!slug || !product) {
-        return (
-            <Layout title="Loading...">
-                <div className="container mx-auto px-4 py-16 text-center">
-                    <p className="text-gray-600">Loading...</p>
-                </div>
-            </Layout>
-        );
-    }
-
-    // Handle add to cart
+    // Handle add to cart - defined after all early returns
     const handleAddToCart = () => {
-        if (!selectedSize) {
-            notify({
-                title: 'Select a size first',
-                message: 'Choose your preferred size to continue.',
-                type: 'info',
-            });
-            return;
-        }
-
-        addItem(product, {
-            size: selectedSize,
-            quantity,
-            image: product.images?.[activeImageIndex] || product.images?.[0],
-        });
-
-        setQuantity(1);
+        setIsConfiguratorOpen(true);
     };
 
-    if (router.isFallback) {
-        return (
-            <Layout title="Loading...">
-                <div className="container mx-auto px-4 py-12 flex justify-center">
-                    <p>Loading product...</p>
-                </div>
-            </Layout>
-        );
-    }
+    const handleConfiguratorConfirm = (config) => {
+        if (product) {
+            addItem(product, {
+                ...config,
+                image: product.images?.[activeImageIndex] || product.images?.[0],
+            });
+            setIsConfiguratorOpen(false);
+        }
+    };
 
-    if (!product) {
-        return (
-            <Layout title="Product Not Found">
-                <div className="container mx-auto px-4 py-12">
-                    <h1 className="text-3xl font-bold mb-4">Product Not Found</h1>
-                    <p>The requested product could not be found.</p>
-                    <Button
-                        variant="primary"
-                        className="mt-6"
-                        onClick={() => router.push('/products')}
-                    >
-                        Browse All Products
-                    </Button>
-                </div>
-            </Layout>
-        );
-    }
+    const handleConfiguratorClose = () => {
+        setIsConfiguratorOpen(false);
+    };
 
     return (
         <Layout title={`${product.name} - Tantuka`}>
@@ -601,49 +571,6 @@ export default function ProductDetail() {
                             <p className="text-gray-700 whitespace-pre-line">{product.description}</p>
                         </div>
 
-                        {/* Size Selection */}
-                        <div className="mt-6">
-                            <h3 className="text-sm font-medium text-gray-900">Size</h3>
-                            <div className="mt-2 flex items-center space-x-3">
-                                {product.sizes.map((size) => (
-                                    <button
-                                        key={size}
-                                        className={`
-                      px-3 py-1 rounded-md text-sm font-medium 
-                      ${selectedSize === size
-                                                ? 'bg-primary-600 text-white'
-                                                : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}
-                    `}
-                                        onClick={() => setSelectedSize(size)}
-                                    >
-                                        {size}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Quantity */}
-                        <div className="mt-6">
-                            <h3 className="text-sm font-medium text-gray-900">Quantity</h3>
-                            <div className="mt-2 flex items-center">
-                                <button
-                                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                                    className="px-3 py-1 border border-gray-300 rounded-l-md hover:bg-gray-100"
-                                >
-                                    -
-                                </button>
-                                <span className="px-4 py-1 border-t border-b border-gray-300 text-center min-w-[40px]">
-                                    {quantity}
-                                </span>
-                                <button
-                                    onClick={() => setQuantity(Math.min(product.stockQuantity, quantity + 1))}
-                                    className="px-3 py-1 border border-gray-300 rounded-r-md hover:bg-gray-100"
-                                >
-                                    +
-                                </button>
-                            </div>
-                        </div>
-
                         {/* Add to Cart */}
                         <div className="mt-8">
                             <Button
@@ -693,6 +620,14 @@ export default function ProductDetail() {
                     </div>
                 </div>
             </div>
+
+            {/* Product Configurator Modal */}
+            <ProductConfigurator
+                product={product}
+                isOpen={isConfiguratorOpen}
+                onClose={handleConfiguratorClose}
+                onConfirm={handleConfiguratorConfirm}
+            />
         </Layout>
     );
 }

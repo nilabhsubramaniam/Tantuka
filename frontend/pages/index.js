@@ -5,7 +5,10 @@ import Image from 'next/image';
 import Layout from '../components/layout/Layout';
 import Testimonials from '../components/home/Testimonials';
 import NewsletterSignup from '../components/home/NewsletterSignup';
+import ProductConfigurator from '../components/cart/ProductConfigurator';
 import { getImagePath } from '../utils/basePath';
+import { useCart } from '../context/CartContext';
+import { useNotification } from '../context/NotificationContext';
 
 export default function Home() {
     return (
@@ -164,6 +167,10 @@ function SareeHero() {
 // Featured Saree Collections
 function FeaturedSarees() {
     const [activeFilter, setActiveFilter] = useState('all');
+    const [selectedProduct, setSelectedProduct] = useState(null);
+    const [isConfiguratorOpen, setIsConfiguratorOpen] = useState(false);
+    const { addItem } = useCart();
+    const { notify } = useNotification();
 
     const sarees = [
         {
@@ -224,6 +231,24 @@ function FeaturedSarees() {
             description: 'Peacock motifs with golden border'
         }
     ];
+
+    const handleAddToCart = (saree) => {
+        setSelectedProduct(saree);
+        setIsConfiguratorOpen(true);
+    };
+
+    const handleConfiguratorConfirm = (config) => {
+        if (selectedProduct) {
+            addItem(selectedProduct, config);
+            setIsConfiguratorOpen(false);
+            setSelectedProduct(null);
+        }
+    };
+
+    const handleConfiguratorClose = () => {
+        setIsConfiguratorOpen(false);
+        setSelectedProduct(null);
+    };
 
     return (
         <section className="py-20 bg-white">
@@ -302,7 +327,10 @@ function FeaturedSarees() {
                                 </div>
 
                                 {/* CTA */}
-                                <button className="w-full px-4 py-3 bg-accent-600 text-white rounded-lg font-semibold hover:bg-accent-700 transition-colors">
+                                <button 
+                                    onClick={() => handleAddToCart(saree)}
+                                    className="w-full px-4 py-3 bg-accent-600 text-white rounded-lg font-semibold hover:bg-accent-700 transition-colors"
+                                >
                                     Add to Cart
                                 </button>
                             </div>
@@ -329,6 +357,14 @@ function FeaturedSarees() {
                     </Link>
                 </motion.div>
             </div>
+
+            {/* Product Configurator Modal */}
+            <ProductConfigurator
+                product={selectedProduct}
+                isOpen={isConfiguratorOpen}
+                onClose={handleConfiguratorClose}
+                onConfirm={handleConfiguratorConfirm}
+            />
         </section>
     );
 }

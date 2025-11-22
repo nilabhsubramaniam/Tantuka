@@ -3,20 +3,23 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 const NotificationContext = createContext();
 
-const DEFAULT_DURATION = 4000;
+const DEFAULT_DURATION = 3000; // 3 seconds - quick and readable
 
 const typeStyles = {
   success: {
-    badge: 'bg-emerald-100 text-emerald-700',
-    border: 'border-emerald-100',
+    badge: 'bg-emerald-50 text-emerald-600',
+    border: 'border-emerald-200',
+    bg: 'bg-gradient-to-r from-emerald-50 to-green-50',
   },
   error: {
-    badge: 'bg-red-100 text-red-700',
-    border: 'border-red-100',
+    badge: 'bg-red-50 text-red-600',
+    border: 'border-red-200',
+    bg: 'bg-gradient-to-r from-red-50 to-rose-50',
   },
   info: {
-    badge: 'bg-blue-100 text-blue-700',
-    border: 'border-blue-100',
+    badge: 'bg-primary-100 text-primary-700',
+    border: 'border-primary-200',
+    bg: 'bg-gradient-to-r from-primary-50 to-accent-50',
   },
 };
 
@@ -67,9 +70,9 @@ export function NotificationProvider({ children }) {
   }, []);
 
   const notify = useCallback(
-    ({ title, message, type = 'success', duration = DEFAULT_DURATION }) => {
+    ({ title, message, type = 'success', duration = DEFAULT_DURATION, image, actions }) => {
       const id = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
-      setNotifications((prev) => [...prev, { id, title, message, type }]);
+      setNotifications((prev) => [...prev, { id, title, message, type, image, actions }]);
 
       if (duration !== null && duration !== 0) {
         const timeout = setTimeout(() => {
@@ -89,45 +92,68 @@ export function NotificationProvider({ children }) {
     <NotificationContext.Provider value={value}>
       {children}
 
-      {/*
-        Responsive notification container:
-        - On small screens: bottom-centered (better for thumb reach)
-        - On medium+ screens: top-right
+      {/* 
+        Toast notification container - top-right, small and crisp
       */}
-      <div className="pointer-events-none fixed inset-x-0 z-[200] flex justify-center sm:justify-end sm:top-6 sm:pr-4 bottom-6 sm:bottom-auto">
-        <div className="w-full max-w-sm px-4 sm:px-0">
-          <AnimatePresence>
-            {notifications.map((notification) => {
-              const styles = getTypeStyles(notification.type);
-              return (
-                <motion.div
-                  key={notification.id}
-                  initial={{ opacity: 0, y: 20, scale: 0.98 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -20, scale: 0.95 }}
-                  transition={{ duration: 0.2 }}
-                  className={`pointer-events-auto rounded-2xl border ${styles.border} bg-white/95 p-4 shadow-lg backdrop-blur mb-3`}
-                >
-                  <div className="flex items-start gap-3">
-                    <div className={`flex h-10 w-10 items-center justify-center rounded-xl ${styles.badge}`}>
-                      <Icon type={notification.type} />
-                    </div>
-                    <div className="flex-1">
-                      {notification.title && (
-                        <p className="text-sm font-semibold text-primary-900">{notification.title}</p>
+      <div 
+        className="pointer-events-none fixed top-20 right-4 z-[100] flex flex-col items-end gap-2"
+      >
+        <AnimatePresence mode="popLayout">
+          {notifications.map((notification) => {
+            const styles = getTypeStyles(notification.type);
+            return (
+              <motion.div
+                key={notification.id}
+                layout
+                initial={{ opacity: 0, y: -50, x: 100, scale: 0.8 }}
+                animate={{ opacity: 1, y: 0, x: 0, scale: 1 }}
+                exit={{ opacity: 0, x: 200, scale: 0.8 }}
+                transition={{ 
+                  type: "spring", 
+                  stiffness: 400, 
+                  damping: 30,
+                  mass: 0.8
+                }}
+                className={`pointer-events-auto rounded-2xl border-2 ${styles.border} ${styles.bg} shadow-2xl backdrop-blur-sm min-w-[280px]`}
+              >
+                <div className="flex items-center gap-3 p-4">
+                    {/* Icon Badge - themed and larger */}
+                    {!notification.image && (
+                      <div className={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl ${styles.badge} shadow-sm`}>
+                        <Icon type={notification.type} />
+                      </div>
+                    )}
+                    
+                    {/* Product Image - rounded */}
+                    {notification.image && (
+                      <div className="flex-shrink-0 w-12 h-12 rounded-xl overflow-hidden bg-white shadow-md ring-2 ring-primary-100">
+                        <img 
+                          src={notification.image} 
+                          alt="" 
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    )}
+                    
+                    {/* Message - themed typography */}
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-semibold text-primary-900 line-clamp-1">
+                        {notification.title || notification.message}
+                      </p>
+                      {notification.title && notification.message && (
+                        <p className="text-xs text-primary-600 line-clamp-1 mt-1">{notification.message}</p>
                       )}
-                      {notification.message && (
-                        <p className="mt-0.5 text-sm text-primary-600">{notification.message}</p>
-                      )}
                     </div>
+                    
+                    {/* Close button - themed */}
                     <button
                       type="button"
                       onClick={() => dismiss(notification.id)}
-                      className="text-primary-300 transition hover:text-primary-500"
+                      className="flex-shrink-0 text-primary-400 hover:text-primary-700 transition-colors hover:bg-primary-100 rounded-lg p-1"
                       aria-label="Dismiss notification"
                     >
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                       </svg>
                     </button>
                   </div>
@@ -135,7 +161,6 @@ export function NotificationProvider({ children }) {
               );
             })}
           </AnimatePresence>
-        </div>
       </div>
     </NotificationContext.Provider>
   );
