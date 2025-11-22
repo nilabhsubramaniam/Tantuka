@@ -7,6 +7,8 @@ import SareeProductCard from '../../components/saree/SareeProductCard';
 import CuratedSlider from '../../components/saree/CuratedSlider';
 import Pagination from '../../components/ui/Pagination';
 import CustomSelect from '../../components/ui/CustomSelect';
+import ProductConfigurator from '../../components/cart/ProductConfigurator';
+import { useCart } from '../../context/CartContext';
 
 // Sample product data - replace with API call
 const allProducts = [
@@ -189,6 +191,7 @@ const guidanceCards = [
 ];
 
 export default function ExploreAllSarees() {
+    const { addItem } = useCart();
     const [filters, setFilters] = useState({
         fabric: [],
         state: [],
@@ -203,6 +206,7 @@ export default function ExploreAllSarees() {
     const [currentPage, setCurrentPage] = useState(1);
     const [showFilters, setShowFilters] = useState(false);
     const [filteredProducts, setFilteredProducts] = useState(allProducts);
+    const [configProduct, setConfigProduct] = useState(null);
     const itemsPerPage = 12;
 
     const totalStatesRepresented = new Set(allProducts.map(product => product.state)).size;
@@ -320,6 +324,27 @@ export default function ExploreAllSarees() {
     const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
     const startIndex = (currentPage - 1) * itemsPerPage;
     const currentProducts = filteredProducts.slice(startIndex, startIndex + itemsPerPage);
+
+    const openConfigurator = (product) => {
+        setConfigProduct(product);
+    };
+
+    const closeConfigurator = () => {
+        setConfigProduct(null);
+    };
+
+    const handleConfiguratorConfirm = (options) => {
+        if (!configProduct) return;
+        const colorLabel = options.color || 'Selected color';
+        const sizeLabel = options.size || 'Free Size';
+        addItem(configProduct, {
+            color: colorLabel,
+            size: sizeLabel,
+            quantity: options.quantity,
+            image: options.image,
+        });
+        setConfigProduct(null);
+    };
 
     return (
         <Layout>
@@ -455,7 +480,11 @@ export default function ExploreAllSarees() {
                                                 ease: "easeOut"
                                             }}
                                         >
-                                            <SareeProductCard product={product} stateInfo={stateHighlightMap[product.state]} />
+                                            <SareeProductCard 
+                                                product={product} 
+                                                stateInfo={stateHighlightMap[product.state]}
+                                                onQuickAdd={() => openConfigurator(product)}
+                                            />
                                         </motion.div>
                                     ))}
                                 </motion.div>
@@ -666,6 +695,13 @@ export default function ExploreAllSarees() {
                         </div>
                     </div>
                 </motion.section>
+
+                <ProductConfigurator
+                    product={configProduct}
+                    isOpen={Boolean(configProduct)}
+                    onClose={closeConfigurator}
+                    onConfirm={handleConfiguratorConfirm}
+                />
             </div>
         </Layout>
     );

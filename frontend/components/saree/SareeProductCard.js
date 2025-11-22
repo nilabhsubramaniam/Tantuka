@@ -1,16 +1,42 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { getImagePath } from '../../utils/basePath';
 
-const SareeProductCard = ({ product, stateInfo }) => {
+const SareeProductCard = ({ product, stateInfo, onQuickAdd }) => {
     const [isWishlisted, setIsWishlisted] = useState(false);
     const [imageLoaded, setImageLoaded] = useState(false);
+
+    const fallbackImage = () => {
+        if (product.image) return product.image;
+        if (product.images?.length) {
+            const firstImage = product.images[0];
+            if (typeof firstImage === 'string') return firstImage;
+            if (typeof firstImage === 'object') return firstImage.src || firstImage.url;
+        }
+        if (product.imagesByColor && product.colors?.length) {
+            const candidate = product.imagesByColor[product.colors[0]];
+            if (Array.isArray(candidate)) {
+                return candidate[0];
+            }
+            return candidate;
+        }
+        return '/images/products/placeholder.jpg';
+    };
+
+    const primaryImage = getImagePath(fallbackImage());
 
     const discount = product.originalPrice 
         ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
         : 0;
     const shippingInfo = product.inStock ? 'Ships within 3 business days' : 'Currently weaving • Dispatch in 2 weeks';
+
+    const handleQuickAdd = (event) => {
+        event.preventDefault();
+        if (onQuickAdd) {
+            onQuickAdd(product);
+        }
+    };
 
     return (
         <motion.div
@@ -26,7 +52,7 @@ const SareeProductCard = ({ product, stateInfo }) => {
                         <div className="absolute inset-0 bg-gradient-to-br from-primary-100 to-accent-50 animate-pulse" />
                     )}
                     <img
-                        src={getImagePath(product.image)}
+                        src={primaryImage}
                         alt={product.name}
                         className={`w-full h-full object-cover transition-all duration-500 group-hover:scale-110
                                   ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
@@ -58,10 +84,7 @@ const SareeProductCard = ({ product, stateInfo }) => {
                         <motion.button
                             whileHover={{ scale: 1.1, y: -2 }}
                             whileTap={{ scale: 0.95 }}
-                            onClick={(e) => {
-                                e.preventDefault();
-                                // Handle add to cart
-                            }}
+                            onClick={handleQuickAdd}
                             className="w-10 h-10 flex items-center justify-center bg-primary-900 text-white 
                                      rounded-full shadow-md hover:bg-accent-500 transition-all duration-200"
                             title="Add to Cart"

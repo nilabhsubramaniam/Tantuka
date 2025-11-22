@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { useCart } from '../../context/CartContext';
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isSareesDropdownOpen, setIsSareesDropdownOpen] = useState(false);
+    const { totalItems } = useCart();
+    const cartCount = totalItems || 0;
+    const displayCount = cartCount > 99 ? '99+' : cartCount;
+    const showCartBadge = cartCount > 0;
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -121,13 +126,17 @@ const Header = () => {
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                                 </svg>
-                                <motion.span
-                                    initial={{ scale: 0 }}
-                                    animate={{ scale: 1 }}
-                                    className="absolute -top-1 -right-1 bg-accent-600 text-white rounded-full text-xs w-4 h-4 flex items-center justify-center font-bold"
-                                >
-                                    0
-                                </motion.span>
+                                {showCartBadge && (
+                                    <motion.span
+                                        key={displayCount}
+                                        initial={{ scale: 0 }}
+                                        animate={{ scale: 1 }}
+                                        className="absolute -top-1 -right-1 bg-accent-600 text-white rounded-full text-[10px] min-w-[1.25rem] h-5 px-1 flex items-center justify-center font-bold shadow-sm"
+                                        aria-label={`${cartCount} items in cart`}
+                                    >
+                                        {displayCount}
+                                    </motion.span>
+                                )}
                             </Link>
                         </motion.div>
                     </div>
@@ -196,9 +205,11 @@ const Header = () => {
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                                 </svg>
-                                <span className="absolute -top-1 -right-1 bg-accent-600 text-white rounded-full text-xs w-4 h-4 flex items-center justify-center font-bold">
-                                    0
-                                </span>
+                                {showCartBadge && (
+                                    <span className="absolute -top-1 -right-1 bg-accent-600 text-white rounded-full text-[10px] min-w-[1.2rem] h-5 px-1 flex items-center justify-center font-bold">
+                                        {displayCount}
+                                    </span>
+                                )}
                             </Link>
                         </div>
                     </motion.div>

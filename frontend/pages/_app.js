@@ -2,6 +2,8 @@ import '../styles/globals.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { useState } from 'react';
 import { AuthProvider } from '../utils/auth';
+import { CartProvider } from '../context/CartContext';
+import { NotificationProvider } from '../context/NotificationContext';
 
 function MyApp({ Component, pageProps }) {
     // Create a client
@@ -17,7 +19,11 @@ function MyApp({ Component, pageProps }) {
     return (
         <QueryClientProvider client={queryClient}>
             <AuthProvider>
-                <Component {...pageProps} />
+                <NotificationProvider>
+                    <CartProvider>
+                        <Component {...pageProps} />
+                    </CartProvider>
+                </NotificationProvider>
             </AuthProvider>
         </QueryClientProvider>
     );

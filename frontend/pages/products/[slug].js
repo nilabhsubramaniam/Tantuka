@@ -4,6 +4,8 @@ import Layout from '../../components/layout/Layout';
 import Button from '../../components/ui/Button';
 import Breadcrumbs from '../../components/ui/Breadcrumbs';
 import { getImagePath } from '../../utils/basePath';
+import { useCart } from '../../context/CartContext';
+import { useNotification } from '../../context/NotificationContext';
 
 // Mock products database - in a real app, this would come from an API
 const allProducts = [
@@ -446,6 +448,8 @@ a simple wrap to a statement piece that complements both ethnic and western wear
 export default function ProductDetail() {
     const router = useRouter();
     const { slug } = router.query;
+    const { addItem } = useCart();
+    const { notify } = useNotification();
 
     // State for selected size and quantity
     const [selectedSize, setSelectedSize] = useState('');
@@ -488,19 +492,21 @@ export default function ProductDetail() {
     // Handle add to cart
     const handleAddToCart = () => {
         if (!selectedSize) {
-            alert('Please select a size');
+            notify({
+                title: 'Select a size first',
+                message: 'Choose your preferred size to continue.',
+                type: 'info',
+            });
             return;
         }
 
-        // Here we would add the product to cart
-        console.log('Adding to cart:', {
-            productId: product.id,
+        addItem(product, {
             size: selectedSize,
-            quantity
+            quantity,
+            image: product.images?.[activeImageIndex] || product.images?.[0],
         });
 
-        // Show success message or redirect to cart
-        alert('Product added to cart!');
+        setQuantity(1);
     };
 
     if (router.isFallback) {
