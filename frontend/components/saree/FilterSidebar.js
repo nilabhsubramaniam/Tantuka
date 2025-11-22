@@ -177,29 +177,59 @@ const FilterSidebar = ({ filters, onFilterChange, show, onClose }) => {
                                         className="overflow-hidden"
                                     >
                                         <div className="pt-2 space-y-1.5">
-                                            {section.options.map((option) => (
-                                                <label
-                                                    key={option.value}
-                                                    className="flex items-center gap-2.5 py-1 cursor-pointer group"
-                                                >
-                                                    <div className="relative">
-                                                        <input
-                                                            type="checkbox"
-                                                            checked={filters[section.id]?.includes(option.value) || false}
-                                                            onChange={() => handleCheckboxChange(section.id, option.value)}
-                                                            className="w-3.5 h-3.5 rounded border-2 border-primary-300 text-accent-500 
-                                                                     focus:ring-2 focus:ring-accent-200 focus:ring-offset-0 
-                                                                     transition-all cursor-pointer"
-                                                        />
-                                                    </div>
-                                                    <span className="flex-1 text-xs text-primary-700 group-hover:text-primary-900 transition-colors">
-                                                        {option.label}
-                                                    </span>
-                                                    <span className="text-xs text-primary-400">
-                                                        {option.count}
-                                                    </span>
-                                                </label>
-                                            ))}
+                                            {section.options.map((option) => {
+                                                const isChecked = filters[section.id]?.includes(option.value) || false;
+                                                return (
+                                                    <label
+                                                        key={option.value}
+                                                        className="flex items-center gap-2.5 py-1.5 px-2 -mx-2 rounded-lg cursor-pointer group
+                                                                 hover:bg-primary-50 transition-colors"
+                                                    >
+                                                        <div className="relative flex items-center justify-center">
+                                                            <input
+                                                                type="checkbox"
+                                                                checked={isChecked}
+                                                                onChange={() => handleCheckboxChange(section.id, option.value)}
+                                                                className="sr-only peer"
+                                                            />
+                                                            {/* Custom Checkbox */}
+                                                            <div className={`
+                                                                w-5 h-5 rounded-md border-2 transition-all duration-200
+                                                                ${isChecked 
+                                                                    ? 'bg-accent-500 border-accent-500' 
+                                                                    : 'bg-white border-primary-300 group-hover:border-accent-400'
+                                                                }
+                                                            `}>
+                                                                {isChecked && (
+                                                                    <svg 
+                                                                        className="w-full h-full text-white p-0.5" 
+                                                                        fill="none" 
+                                                                        stroke="currentColor" 
+                                                                        viewBox="0 0 24 24"
+                                                                    >
+                                                                        <path 
+                                                                            strokeLinecap="round" 
+                                                                            strokeLinejoin="round" 
+                                                                            strokeWidth={3} 
+                                                                            d="M5 13l4 4L19 7" 
+                                                                        />
+                                                                    </svg>
+                                                                )}
+                                                            </div>
+                                                        </div>
+                                                        <span className={`flex-1 text-sm transition-colors ${
+                                                            isChecked 
+                                                                ? 'text-primary-900 font-medium' 
+                                                                : 'text-primary-700 group-hover:text-primary-900'
+                                                        }`}>
+                                                            {option.label}
+                                                        </span>
+                                                        <span className="text-xs text-primary-400 font-medium">
+                                                            {option.count}
+                                                        </span>
+                                                    </label>
+                                                );
+                                            })}
                                         </div>
                                     </motion.div>
                                 )}
@@ -351,16 +381,45 @@ const FilterSidebar = ({ filters, onFilterChange, show, onClose }) => {
 
                     {/* In Stock Toggle */}
                     <div className="pt-2">
-                        <label className="flex items-center gap-2.5 cursor-pointer group">
-                            <input
-                                type="checkbox"
-                                checked={filters.inStock}
-                                onChange={(e) => onFilterChange({ ...filters, inStock: e.target.checked })}
-                                className="w-3.5 h-3.5 rounded border-2 border-primary-300 text-accent-500 
-                                         focus:ring-2 focus:ring-accent-200 focus:ring-offset-0 
-                                         transition-all cursor-pointer"
-                            />
-                            <span className="text-xs text-primary-700 group-hover:text-primary-900 transition-colors">
+                        <label className="flex items-center gap-2.5 py-1.5 px-2 -mx-2 rounded-lg cursor-pointer group
+                                       hover:bg-primary-50 transition-colors">
+                            <div className="relative flex items-center justify-center">
+                                <input
+                                    type="checkbox"
+                                    checked={filters.inStock}
+                                    onChange={(e) => onFilterChange({ ...filters, inStock: e.target.checked })}
+                                    className="sr-only peer"
+                                />
+                                {/* Custom Checkbox */}
+                                <div className={`
+                                    w-5 h-5 rounded-md border-2 transition-all duration-200
+                                    ${filters.inStock 
+                                        ? 'bg-accent-500 border-accent-500' 
+                                        : 'bg-white border-primary-300 group-hover:border-accent-400'
+                                    }
+                                `}>
+                                    {filters.inStock && (
+                                        <svg 
+                                            className="w-full h-full text-white p-0.5" 
+                                            fill="none" 
+                                            stroke="currentColor" 
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path 
+                                                strokeLinecap="round" 
+                                                strokeLinejoin="round" 
+                                                strokeWidth={3} 
+                                                d="M5 13l4 4L19 7" 
+                                            />
+                                        </svg>
+                                    )}
+                                </div>
+                            </div>
+                            <span className={`text-sm transition-colors ${
+                                filters.inStock 
+                                    ? 'text-primary-900 font-medium' 
+                                    : 'text-primary-700 group-hover:text-primary-900'
+                            }`}>
                                 In Stock Only
                             </span>
                         </label>

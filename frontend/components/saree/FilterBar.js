@@ -29,8 +29,8 @@ const FilterBar = ({
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                             onClick={onFilterClick}
-                            className="flex items-center gap-2 px-4 py-2.5 bg-accent-500 text-white 
-                                     rounded-lg hover:bg-accent-600 transition-all duration-250 
+                            className="flex items-center gap-2 px-4 py-2 bg-primary-900 text-white 
+                                     rounded-full hover:bg-primary-800 transition-all duration-250 
                                      shadow-soft hover:shadow-md font-medium text-sm"
                         >
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -43,8 +43,8 @@ const FilterBar = ({
                                 <motion.span
                                     initial={{ scale: 0 }}
                                     animate={{ scale: 1 }}
-                                    className="flex items-center justify-center min-w-[1.25rem] h-5 px-1.5 bg-white 
-                                             text-accent-600 text-xs rounded-full font-bold"
+                                    className="flex items-center justify-center min-w-[1rem] h-4 px-1.5 bg-accent-500 
+                                             text-white text-xs rounded-full font-bold"
                                 >
                                     {activeFilters.length}
                                 </motion.span>
