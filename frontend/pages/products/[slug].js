@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import Layout from '../../components/layout/Layout';
 import Button from '../../components/ui/Button';
+import Breadcrumbs from '../../components/ui/Breadcrumbs';
 import { getImagePath } from '../../utils/basePath';
 
 // Mock products database - in a real app, this would come from an API
@@ -224,6 +225,222 @@ that's sure to make you stand out at any occasion.`,
         stockQuantity: 6,
         category: 'dresses',
     },
+    {
+        id: 7,
+        name: 'Royal Blue Silk Chikankari Kurta',
+        slug: 'royal-blue-silk-kurta',
+        description: `Luxurious silk kurta in royal blue with intricate white Chikankari embroidery. 
+This premium piece combines the richness of silk with the delicate art of Lucknow embroidery.
+
+Perfect for festive occasions and celebrations. The contrasting white embroidery on blue silk 
+creates a stunning visual appeal that's both traditional and contemporary.`,
+        price: 3799,
+        originalPrice: 4599,
+        sizes: ['S', 'M', 'L', 'XL'],
+        images: [
+            '/images/products/pexels-michaelhidaeki-34472641.jpg',
+            '/images/products/pexels-rajeshverma-13031585.jpg',
+            '/images/products/pexels-riad-morshed-107016858-15996827.jpg',
+            '/images/products/pexels-rohit-photography-751545565-32797758.jpg',
+        ],
+        details: [
+            'Pure silk fabric',
+            'White Chikankari on blue base',
+            'Premium quality embroidery',
+            'Festive wear collection',
+            'Regular fit',
+        ],
+        care: [
+            'Dry clean only',
+            'Do not wash',
+            'Iron on low heat with cloth',
+            'Store in cotton bag',
+            'Keep away from moisture',
+        ],
+        inStock: true,
+        stockQuantity: 8,
+        category: 'kurtas',
+    },
+    {
+        id: 8,
+        name: 'Pastel Pink Chikankari Dress',
+        slug: 'pastel-pink-dress',
+        description: `Delicate pastel pink dress featuring beautiful Chikankari embroidery. 
+This contemporary design is perfect for daytime events and summer gatherings.
+
+The soft pink hue combined with white embroidery creates an ethereal and feminine look. 
+Comfortable and stylish, this dress is a must-have for your ethnic wardrobe.`,
+        price: 3299,
+        originalPrice: 3999,
+        sizes: ['XS', 'S', 'M', 'L', 'XL'],
+        images: [
+            '/images/products/pexels-rajeshverma-13031585.jpg',
+            '/images/products/pexels-vishalcreation-14205208(1).jpg',
+            '/images/products/pexels-michaelhidaeki-34472641.jpg',
+            '/images/products/pexels-shahin134053-10397381.jpg',
+        ],
+        details: [
+            'Soft cotton blend fabric',
+            'Delicate Chikankari work',
+            'A-line silhouette',
+            'Perfect for daywear',
+            'Length: 42 inches',
+        ],
+        care: [
+            'Hand wash in cold water',
+            'Use mild detergent',
+            'Do not bleach',
+            'Iron on medium heat',
+            'Dry in shade',
+        ],
+        inStock: true,
+        stockQuantity: 10,
+        category: 'dresses',
+    },
+    {
+        id: 9,
+        name: 'Traditional White Chikankari Saree',
+        slug: 'traditional-white-saree',
+        description: `Classic white-on-white Chikankari saree that epitomizes the elegance of Lucknow embroidery. 
+This timeless piece is perfect for weddings, festivals, and special occasions.
+
+The intricate threadwork covers the entire saree creating a rich texture. Comes with a matching 
+blouse piece that can be customized to your measurements.`,
+        price: 6499,
+        originalPrice: 8999,
+        sizes: ['One Size'],
+        images: [
+            '/images/products/pexels-riad-morshed-107016858-15996827.jpg',
+            '/images/products/pexels-vishalcreation-14205208.jpg',
+            '/images/products/pexels-rajeshverma-13237383.jpg',
+            '/images/products/pexels-shahin134053-10397381.jpg',
+        ],
+        details: [
+            'Pure cotton fabric',
+            'White-on-white embroidery',
+            'All-over Chikankari work',
+            'Length: 6.5 meters',
+            'Includes blouse piece',
+        ],
+        care: [
+            'Gentle hand wash only',
+            'Use mild detergent',
+            'Dry flat in shade',
+            'Iron with cloth on reverse',
+            'Store rolled in muslin',
+        ],
+        inStock: true,
+        stockQuantity: 4,
+        category: 'sarees',
+    },
+    {
+        id: 10,
+        name: 'Contemporary Chikankari Top',
+        slug: 'contemporary-chikankari-top',
+        description: `Modern short top with traditional Chikankari embroidery, perfect for fusion styling. 
+Pair it with jeans, palazzos, or skirts for a contemporary ethnic look.
+
+This versatile piece bridges traditional craftsmanship with modern fashion sensibilities, 
+making it perfect for casual outings and semi-formal occasions.`,
+        price: 1999,
+        originalPrice: 2499,
+        sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
+        images: [
+            '/images/products/pexels-rohit-photography-751545565-32797758.jpg',
+            '/images/products/pexels-darkmodecinema-19567892.jpg',
+            '/images/products/pexels-rajeshverma-13192034.jpg',
+            '/images/products/pexels-vishalcreation-14205208(1).jpg',
+        ],
+        details: [
+            'Cotton voile fabric',
+            'Modern cut with traditional work',
+            'Versatile fusion wear',
+            'Comfortable relaxed fit',
+            'Length: 24 inches',
+        ],
+        care: [
+            'Machine wash gentle cycle',
+            'Cold water recommended',
+            'Do not bleach',
+            'Tumble dry low or hang dry',
+            'Iron on medium heat',
+        ],
+        inStock: true,
+        stockQuantity: 20,
+        category: 'kurtas',
+    },
+    {
+        id: 11,
+        name: 'Mint Green Chikankari Kurta Set',
+        slug: 'mint-green-kurta-set',
+        description: `Refreshing mint green kurta set with delicate Chikankari embroidery and matching pants. 
+This complete set offers effortless style and comfort.
+
+The cool mint color is perfect for summer events and daytime celebrations. The coordinated 
+set takes the guesswork out of styling while ensuring you look put-together and elegant.`,
+        price: 4299,
+        originalPrice: 5299,
+        sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+        images: [
+            '/images/products/pexels-vishalcreation-14205208(1).jpg',
+            '/images/products/pexels-shahin134053-10397381.jpg',
+            '/images/products/pexels-rajeshverma-13237383.jpg',
+            '/images/products/pexels-michaelhidaeki-34472641.jpg',
+        ],
+        details: [
+            'Premium cotton fabric',
+            'Includes kurta and pants',
+            'All-over Chikankari work',
+            'Straight cut kurta',
+            'Matching straight pants',
+        ],
+        care: [
+            'Hand wash or gentle machine wash',
+            'Use mild detergent',
+            'Do not bleach',
+            'Iron on medium heat',
+            'Dry in shade',
+        ],
+        inStock: true,
+        stockQuantity: 7,
+        category: 'kurtas',
+    },
+    {
+        id: 12,
+        name: 'Elegant Chikankari Shawl',
+        slug: 'elegant-chikankari-shawl',
+        description: `Luxurious wool blend shawl adorned with fine Chikankari embroidery. 
+This versatile accessory adds warmth and elegance to any outfit.
+
+Perfect for evening events or cooler weather. The intricate embroidery elevates this from 
+a simple wrap to a statement piece that complements both ethnic and western wear.`,
+        price: 2499,
+        originalPrice: null,
+        sizes: ['One Size'],
+        images: [
+            '/images/products/pexels-rajeshverma-13031585.jpg',
+            '/images/products/pexels-riad-morshed-107016858-15996827.jpg',
+            '/images/products/pexels-rohit-photography-751545565-32797758.jpg',
+            '/images/products/pexels-darkmodecinema-19567892.jpg',
+        ],
+        details: [
+            'Premium wool blend fabric',
+            'Delicate Chikankari borders',
+            'Size: 100cm x 200cm',
+            'Lightweight and warm',
+            'Versatile styling options',
+        ],
+        care: [
+            'Dry clean recommended',
+            'Or gentle hand wash in cold water',
+            'Do not wring',
+            'Lay flat to dry',
+            'Store folded with moth repellent',
+        ],
+        inStock: true,
+        stockQuantity: 15,
+        category: 'accessories',
+    },
 ];
 
 export default function ProductDetail() {
@@ -317,6 +534,14 @@ export default function ProductDetail() {
     return (
         <Layout title={`${product.name} - Tantuka`}>
             <div className="container mx-auto px-4 py-8">
+                {/* Breadcrumbs */}
+                <Breadcrumbs 
+                    items={[
+                        { label: 'Products', href: '/products' },
+                        { label: product.name }
+                    ]} 
+                />
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {/* Product Images */}
                     <div>
