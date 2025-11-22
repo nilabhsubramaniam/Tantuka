@@ -1,10 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 
 const Breadcrumbs = ({ items }) => {
-    const router = useRouter();
-
     return (
         <nav className="flex items-center space-x-2 text-sm mb-6" aria-label="Breadcrumb">
             <Link 
@@ -38,18 +35,6 @@ const Breadcrumbs = ({ items }) => {
                     )}
                 </React.Fragment>
             ))}
-
-            {/* Back Button */}
-            <button
-                onClick={() => router.back()}
-                className="ml-auto flex items-center gap-1 text-primary-600 hover:text-accent-600 
-                         transition-colors duration-200 font-medium"
-            >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                </svg>
-                Back
-            </button>
         </nav>
     );
 };
