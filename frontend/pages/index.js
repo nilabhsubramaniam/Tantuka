@@ -138,18 +138,6 @@ function SareeHero() {
                                 </motion.button>
                             </Link>
                         </motion.div>
-
-                        {/* Trust Badges */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.6 }}
-                            className="flex gap-4 mt-10 text-sm text-primary-600"
-                        >
-                            <span>✅ 100% Authentic</span>
-                            <span>✅ Free Returns</span>
-                            <span>✅ Secure Checkout</span>
-                        </motion.div>
                     </motion.div>
 
                     {/* Right - Hero Image */}
