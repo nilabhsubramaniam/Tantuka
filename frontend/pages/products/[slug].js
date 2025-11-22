@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
-import Image from 'next/image';
 import Layout from '../../components/layout/Layout';
 import Button from '../../components/ui/Button';
+import { getImagePath } from '../../utils/basePath';
 
 export default function ProductDetail() {
     const router = useRouter();
@@ -33,10 +33,10 @@ export default function ProductDetail() {
         originalPrice: 2999,
         sizes: ['XS', 'S', 'M', 'L', 'XL'],
         images: [
-            '/images/product-placeholder.jpg',
-            '/images/product-placeholder.jpg',
-            '/images/product-placeholder.jpg',
-            '/images/product-placeholder.jpg',
+            '/images/products/pexels-rajeshverma-13192034.jpg',
+            '/images/products/pexels-vishalcreation-14205208.jpg',
+            '/images/products/pexels-rajeshverma-13237383.jpg',
+            '/images/products/pexels-darkmodecinema-19567892.jpg',
         ],
         details: [
             'Handcrafted pure cotton fabric',
@@ -110,11 +110,9 @@ export default function ProductDetail() {
                     <div>
                         {/* Main Image */}
                         <div className="aspect-w-4 aspect-h-5 rounded-lg overflow-hidden bg-gray-100 mb-4">
-                            <Image
-                                src={product.images[activeImageIndex]}
+                            <img
+                                src={getImagePath(product.images[activeImageIndex])}
                                 alt={product.name}
-                                width={600}
-                                height={750}
                                 className="w-full h-full object-cover"
                             />
                         </div>
@@ -128,11 +126,9 @@ export default function ProductDetail() {
                                         }`}
                                     onClick={() => setActiveImageIndex(index)}
                                 >
-                                    <Image
-                                        src={image}
+                                    <img
+                                        src={getImagePath(image)}
                                         alt={`${product.name} - view ${index + 1}`}
-                                        width={120}
-                                        height={150}
                                         className="w-full h-full object-cover"
                                     />
                                 </button>
