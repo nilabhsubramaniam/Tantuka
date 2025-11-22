@@ -37,7 +37,7 @@ export default function Home() {
 // Premium Saree Hero Section
 function SareeHero() {
     return (
-        <div className="relative overflow-hidden bg-gradient-to-br from-primary-50 via-white to-sage-50 min-h-screen pt-20">
+        <div className="relative overflow-hidden bg-gradient-to-br from-primary-50 via-white to-sage-50 min-h-screen pt-8 md:pt-20">
             {/* Decorative Background */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute top-20 right-10 w-96 h-96 bg-gold-200/15 rounded-full blur-3xl animate-float"></div>
@@ -46,8 +46,7 @@ function SareeHero() {
             </div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div className="grid lg:grid-cols-2 gap-12 items-center min-h-screen">
-                    {/* Left Content */}
+                <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center min-h-[calc(100vh-4rem)] md:min-h-screen">{/*Left Content */}
                     <motion.div 
                         initial={{ opacity: 0, x: -50 }}
                         animate={{ opacity: 1, x: 0 }}

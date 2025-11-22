@@ -22,43 +22,48 @@ const FilterBar = ({
     return (
         <div className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-primary-100 shadow-sm">
             <div className="container mx-auto px-4 max-w-7xl">
-                <div className="py-3 flex flex-col md:flex-row md:items-center gap-3">
-                    {/* Left: Filter Button */}
-                    <motion.button
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        onClick={onFilterClick}
-                        className="flex items-center gap-2 px-4 py-2 bg-primary-900 text-white 
-                                 rounded-full hover:bg-primary-800 transition-all duration-250 
-                                 shadow-soft hover:shadow-md font-medium text-sm"
-                    >
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
-                                  d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" 
-                            />
-                        </svg>
-                        <span className="hidden sm:inline">Filters</span>
-                        {activeFilters.length > 0 && (
-                            <motion.span
-                                initial={{ scale: 0 }}
-                                animate={{ scale: 1 }}
-                                className="flex items-center justify-center w-4 h-4 bg-accent-500 
-                                         text-white text-xs rounded-full font-bold"
-                            >
-                                {activeFilters.length}
-                            </motion.span>
-                        )}
-                    </motion.button>
+                <div className="py-3 flex flex-col sm:flex-row sm:items-center gap-3">
+                    {/* Left: Filter Button + Results */}
+                    <div className="flex items-center gap-3 flex-wrap">
+                        <motion.button
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                            onClick={onFilterClick}
+                            className="flex items-center gap-2 px-4 py-2.5 bg-accent-500 text-white 
+                                     rounded-lg hover:bg-accent-600 transition-all duration-250 
+                                     shadow-soft hover:shadow-md font-medium text-sm"
+                        >
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
+                                      d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" 
+                                />
+                            </svg>
+                            <span>Filters</span>
+                            {activeFilters.length > 0 && (
+                                <motion.span
+                                    initial={{ scale: 0 }}
+                                    animate={{ scale: 1 }}
+                                    className="flex items-center justify-center min-w-[1.25rem] h-5 px-1.5 bg-white 
+                                             text-accent-600 text-xs rounded-full font-bold"
+                                >
+                                    {activeFilters.length}
+                                </motion.span>
+                            )}
+                        </motion.button>
 
-                    {/* Middle: Active Filter Chips */}
-                    <div className="flex-1 flex items-center gap-2 overflow-x-auto pb-1 md:pb-0 
-                                  scrollbar-thin scrollbar-thumb-primary-300 scrollbar-track-primary-100">
-                        <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-primary-50 text-primary-600 text-xs font-medium whitespace-nowrap">
+                        {/* Results Count */}
+                        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-primary-50 text-primary-700 text-xs font-medium whitespace-nowrap">
                             <svg className="w-3.5 h-3.5 text-accent-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z" />
                             </svg>
-                            {filterSummary}
+                            <span className="hidden xs:inline">{filterSummary}</span>
+                            <span className="xs:hidden">{resultsCount} items</span>
                         </div>
+                    </div>
+
+                    {/* Middle: Active Filter Chips */}
+                    <div className="flex-1 flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0 
+                                  scrollbar-thin scrollbar-thumb-primary-300 scrollbar-track-primary-100">
                         <AnimatePresence mode="popLayout">
                             {activeFilters.map((filter, index) => (
                                 <motion.div
